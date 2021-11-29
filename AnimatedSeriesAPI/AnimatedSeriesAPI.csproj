@@ -23,11 +23,10 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Entities\" />
-    <Folder Include="Data\" />
     <Folder Include="Models\DTO\" />
     <Folder Include="Models\Profiles\" />
     <Folder Include="Models\Repositories\Interfaces\" />
+    <Folder Include="Middleware\" />
   </ItemGroup>
 
 </Project>
