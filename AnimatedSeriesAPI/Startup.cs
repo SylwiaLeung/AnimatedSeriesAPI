@@ -1,3 +1,4 @@
+using AnimatedSeriesAPI.Controllers;
 using AnimatedSeriesAPI.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,6 +34,7 @@ namespace AnimatedSeriesAPI
             services.AddDbContext<SeriesDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<SeriesSeeder>();
+            services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AnimatedSeriesAPI", Version = "v1" });

@@ -9,6 +9,7 @@ namespace AnimatedSeriesAPI.Data
             : base(options)
         {
         }
+
         public DbSet<Season> Seasons { get; set; }
         public DbSet<Episode> Episodes { get; set; }
         public DbSet<Serie> Series { get; set; }
@@ -21,7 +22,7 @@ namespace AnimatedSeriesAPI.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CastLector>()
-                .HasKey(cl => new { cl.CastId, cl.LectorId });
+                .HasKey(cl => cl.Id);
             modelBuilder.Entity<CastLector>()
                 .HasOne(cl => cl.Cast)
                 .WithMany(c => c.CastLectors)

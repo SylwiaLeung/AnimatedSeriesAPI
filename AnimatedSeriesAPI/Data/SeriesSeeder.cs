@@ -53,7 +53,70 @@ namespace AnimatedSeriesAPI.Data
                     _context.Episodes.AddRange(GetEpisodes());
                     _context.SaveChanges();
                 }
+                if (!_context.CastLectors.Any())
+                {
+                    _context.CastLectors.AddRange(GetCastLectors());
+                    _context.SaveChanges();
+                }
             }
+        }
+
+        private IEnumerable<CastLector> GetCastLectors()
+        {
+            List<CastLector> castLectors = new()
+            {
+                new CastLector()
+                {
+                    CastId = 1,
+                    LectorId = 1
+                },
+                new CastLector()
+                {
+                    CastId = 1,
+                    LectorId = 2
+                },
+                new CastLector()
+                {
+                    CastId = 2,
+                    LectorId = 2
+                },
+                new CastLector()
+                {
+                    CastId = 2,
+                    LectorId = 3
+                },
+                new CastLector()
+                {
+                    CastId = 2,
+                    LectorId = 4
+                },
+                new CastLector()
+                {
+                    CastId = 3,
+                    LectorId = 4
+                },
+                new CastLector()
+                {
+                    CastId = 4,
+                    LectorId = 6
+                },
+                new CastLector()
+                {
+                    CastId = 5,
+                    LectorId = 5
+                },
+                new CastLector()
+                {
+                    CastId = 5,
+                    LectorId = 4
+                },
+                new CastLector()
+                {
+                    CastId = 5,
+                    LectorId = 1
+                }
+            };
+            return castLectors;
         }
 
         private IEnumerable<Episode> GetEpisodes()
