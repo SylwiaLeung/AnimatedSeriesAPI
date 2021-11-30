@@ -8,7 +8,7 @@ namespace AnimatedSeriesAPI.Entities
         public int Id { get; set; }
 
         [Required]
-        public int Number { get; set; }
+        public int SeasonNumber { get; set; }
         public int SerieId { get; set; }
         public virtual Serie Serie { get; set; }
         public IEnumerable<Episode> Episodes { get; set; }

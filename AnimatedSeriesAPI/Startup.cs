@@ -34,6 +34,7 @@ namespace AnimatedSeriesAPI
             services.AddDbContext<SeriesDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<SeriesSeeder>();
+            services.AddAutoMapper(this.GetType().Assembly);
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddSwaggerGen(c =>
             {
