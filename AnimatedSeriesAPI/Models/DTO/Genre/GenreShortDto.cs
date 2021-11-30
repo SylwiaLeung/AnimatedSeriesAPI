@@ -1,6 +1,6 @@
 ﻿namespace AnimatedSeriesAPI.Controllers
 {
-    public class GenreDto
+    public class GenreShortDto
     {
     }
 }
