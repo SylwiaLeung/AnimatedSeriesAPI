@@ -2,9 +2,9 @@ using AnimatedSeriesAPI.Controllers;
 using AnimatedSeriesAPI.Data;
 using AnimatedSeriesAPI.Entities;
 using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using AnimatedSeriesAPI.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,13 +15,11 @@ namespace AnimatedSeriesAPI.Models
     {
         private readonly SeriesDbContext _context;
         private readonly IMapper _mapper;
-        private readonly ILogger<SerieController> _logger;
 
-        public SerieRepository(SeriesDbContext context, IMapper mapper, ILogger<SerieController> logger)
+        public SerieRepository(SeriesDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
-            _logger = logger;
         }
 
         public async Task<IEnumerable<SerieShortDto>> GetAll()
@@ -73,7 +71,7 @@ namespace AnimatedSeriesAPI.Models
         {
             var serie = await _context
                 .Series
-                .FirstOrDefaultAsync(g => g.Id == serieId);
+                .FirstOrDefaultAsync(s => s.Id == serieId);
 
             if (serie is null)
                 throw new NotFoundException("Serie not found");
