@@ -9,5 +9,6 @@ namespace AnimatedSeriesAPI.Entities
 
         [Required]
         public string Name { get; set; }
+        public IEnumerable<Serie> Series { get; set; }
     }
 }
