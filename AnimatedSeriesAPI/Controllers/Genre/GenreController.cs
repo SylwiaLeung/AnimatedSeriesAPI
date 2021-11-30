@@ -1,3 +1,4 @@
+using AnimatedSeriesAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AnimatedSeriesAPI.Controllers

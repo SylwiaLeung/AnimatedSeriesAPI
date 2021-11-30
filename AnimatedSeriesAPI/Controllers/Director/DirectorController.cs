@@ -17,25 +17,29 @@ namespace AnimatedSeriesAPI.Controllers.Director
         }
 
         [HttpGet]
-        [Route("{id}/directors/")]
+        [Route("directors")]
         public async Task<ActionResult<IEnumerable<DirectorShortDto>>> GetAllDirectors()
         {
             return Ok(await _directorRepo.GetAll());
         }
 
         [HttpGet]
-        [Route("{id}/directors/{id}")]
+        [Route("directors/{id}")]
         public async Task<ActionResult<DirectorLongDto>> GetDirector(int id)
         {
             return Ok(await _directorRepo.GetSingle(id));
         }
 
 
-        //[HttpGet]
-        //[Route("{id}/directors/{id}")]
-        //public async Task<ActionResult<IEnumerable<DirectorShortDto>>> GetDirector()
-        //{
-        //    return Ok(await _directorRepo.GetAll());
-        //}
+        [HttpGet]
+        [Route("directors/{id}/seasons")]
+        public async Task<ActionResult<IEnumerable<SeasonShortDto>>> GetDirectorAllSeasons(int directorId)
+        {
+            return Ok(await _directorRepo.GetDirectorAllSeasons(directorId));
+        }
+
+
+
+
     }
 }
