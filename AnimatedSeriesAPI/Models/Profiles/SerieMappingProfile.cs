@@ -7,7 +7,7 @@ namespace AnimatedSeriesAPI.Models
     {
         public SerieMappingProfile()
         {
-            CreateMap<Cast, CastShortDto>();
+            //CreateMap<Cast, CastShortDto>();
 
             CreateMap<Director, DirectorLongDto>();
             CreateMap<Director, DirectorShortDto>();

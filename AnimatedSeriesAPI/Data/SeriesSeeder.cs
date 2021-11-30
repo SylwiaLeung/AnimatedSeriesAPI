@@ -126,37 +126,37 @@ namespace AnimatedSeriesAPI.Data
                 new Episode()
                 {
                     Title = "Pilot",
-                    Number = 1,
+                    EpisodeNumber = 1,
                     SeasonId = 1
                 },
                 new Episode()
                 {
                     Title = "Pilot",
-                    Number = 1,
+                    EpisodeNumber = 1,
                     SeasonId = 2
                 },
                 new Episode()
                 {
                     Title = "Pilot",
-                    Number = 1,
+                    EpisodeNumber = 1,
                     SeasonId = 3
                 },
                 new Episode()
                 {
                     Title = "Pilot",
-                    Number = 1,
+                    EpisodeNumber = 1,
                     SeasonId = 4
                 },
                 new Episode()
                 {
                     Title = "Geometry",
-                    Number = 1,
+                    EpisodeNumber = 1,
                     SeasonId = 5
                 },
                 new Episode()
                 {
                     Title = "Pilot",
-                    Number = 1,
+                    EpisodeNumber = 1,
                     SeasonId = 6
                 },
             };
@@ -169,42 +169,42 @@ namespace AnimatedSeriesAPI.Data
             {
                 new Season()
                 {
-                    Number = 1,
+                    SeasonNumber = 1,
                     SerieId = 1,
                     DirectorId = 4,
                     CastId = 1
                 },
                 new Season()
                 {
-                    Number = 1,
+                    SeasonNumber = 1,
                     SerieId = 2,
                     DirectorId = 2,
                     CastId = 2
                 },
                 new Season()
                 {
-                    Number = 1,
+                    SeasonNumber = 1,
                     SerieId = 3,
                     DirectorId = 3,
                     CastId = 3
                 },
                 new Season()
                 {
-                    Number = 1,
+                    SeasonNumber = 1,
                     SerieId = 4,
                     DirectorId = 1,
                     CastId = 4
                 },
                 new Season()
                 {
-                    Number = 2,
+                    SeasonNumber = 2,
                     SerieId = 4,
                     DirectorId = 1,
                     CastId = 4
                 },
                 new Season()
                 {
-                    Number = 1,
+                    SeasonNumber = 1,
                     SerieId = 5,
                     DirectorId = 5,
                     CastId = 5
