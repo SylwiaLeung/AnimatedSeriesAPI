@@ -1,8 +1,7 @@
 ﻿namespace AnimatedSeriesAPI.Models
 {
-    public class GenreShortDto
+    public class GenreCreateDto
     {
-        int Id { get; set; }
         string Name { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 using AnimatedSeriesAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace AnimatedSeriesAPI.Controllers
 {
@@ -15,15 +16,15 @@ namespace AnimatedSeriesAPI.Controllers
         }
 
         [HttpGet]
-        public ActionResult<GenreDto> GetAll()
+        public async Task<ActionResult<GenreShortDto>> GetAll()
         {
-            var genre = _genreRepository.GetAll() ;
+            var genre = await _genreRepository.GetAll() ;
 
-            return Ok();
+            return Ok(genre);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<GenreDto> Get([FromRoute] int id)
+        public ActionResult<GenreLongDto> Get([FromRoute] int id)
         {
             var genre = _genreRepository.GetSingle(id);
 
@@ -31,23 +32,23 @@ namespace AnimatedSeriesAPI.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreatePlaylist([FromBody] CreateGenreDto dto)
+        public async Task<ActionResult> CreatePlaylist([FromBody] GenreCreateDto dto)
         {
-            var id = _genreRepository.Add(dto);
+            var id = await _genreRepository.Add(dto);
 
             return Created($"/genre/{id}", null);
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<GenreDto> Delete([FromRoute] int id)
+        public async Task<ActionResult> Delete([FromRoute] int id)
         {
-            _genreRepository.Delete(id);
+            await _genreRepository.Delete(id);
 
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<GenreDto> Update([FromRoute] int id, [FromBody] UpdateGenreDto dto)
+        public ActionResult<GenreUpdateDto> Update([FromRoute] int id, [FromBody] GenreUpdateDto dto)
         {
             _genreRepository.Update(dto, id);
 

@@ -1,6 +1,6 @@
 ﻿namespace AnimatedSeriesAPI.Models
 {
-    public class CreateGenreDto
+    public class CastLongDto
     {
     }
 }
