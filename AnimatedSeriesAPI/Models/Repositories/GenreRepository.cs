@@ -1,3 +1,5 @@
+using AnimatedSeriesAPI.Data;
+using AutoMapper;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -5,6 +7,15 @@ namespace AnimatedSeriesAPI.Models
 {
     public class GenreRepository : IGenreRepository
     {
+        private readonly SeriesDbContext _context;
+        private readonly IMapper _maper;
+
+        public GenreRepository(SeriesDbContext context, IMapper mapper)
+        {
+            _context = context;
+            _maper = mapper;
+        }
+
         public Task<int> Add(GenreCreateDto obj)
         {
             throw new System.NotImplementedException();
