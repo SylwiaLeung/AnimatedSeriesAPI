@@ -1,6 +1,6 @@
 ﻿namespace AnimatedSeriesAPI.Models
 {
-    public interface IGenreRepository : IEditableRepository<UpdateGenreDto, CreateGenreDto>, IReadableRepository<GenreShortDto>
+    public interface IGenreRepository : IEditableRepository<GenreUpdateDto, GenreCreateDto>, IReadableRepository<GenreShortDto>
     {
     }
 }

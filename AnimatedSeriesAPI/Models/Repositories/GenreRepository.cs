@@ -5,7 +5,7 @@ namespace AnimatedSeriesAPI.Models
 {
     public class GenreRepository : IGenreRepository
     {
-        public Task<int> Add(CreateGenreDto obj)
+        public Task<int> Add(GenreCreateDto obj)
         {
             throw new System.NotImplementedException();
         }
@@ -30,7 +30,7 @@ namespace AnimatedSeriesAPI.Models
             throw new System.NotImplementedException();
         }
 
-        public Task Update(UpdateGenreDto obj, int id)
+        public Task Update(GenreUpdateDto obj, int id)
         {
             throw new System.NotImplementedException();
         }
