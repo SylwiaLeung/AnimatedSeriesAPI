@@ -46,11 +46,6 @@ namespace AnimatedSeriesAPI.Models
             return genreDto;
         }
 
-        public Task SaveAsyncChanges()
-        {
-            throw new System.NotImplementedException();
-        }
-
         public Task Update(GenreUpdateDto obj, int id)
         {
             throw new System.NotImplementedException();
