@@ -1,0 +1,48 @@
+using AutoMapper;
+using AnimatedSeriesAPI.Entities;
+
+namespace AnimatedSeriesAPI.Models
+{
+    public class SerieMappingProfile : Profile
+    {
+        public SerieMappingProfile()
+        {
+            CreateMap<Cast, CastLongDto>();
+
+            CreateMap<Director, DirectorLongDto>();
+            CreateMap<Director, DirectorShortDto>();
+
+            CreateMap<Serie, SerieShortDto>();
+            CreateMap<Serie, SerieLongDto>()
+                .ForMember(s => s.GenreName, s => s.MapFrom(s => s.Genre.Name));
+
+            CreateMap<Season, SeasonLongDto>()
+                .ForMember(s => s.SerieName, s => s.MapFrom(s => s.Serie.Title))
+                .ForMember(s => s.DirectorName, s => s.MapFrom(s => s.Director.Name));
+            CreateMap<Season, SeasonShortDto>();
+
+            CreateMap<Lector, LectorShortDto>();
+            CreateMap<Lector, LectorLongDto>();
+
+            CreateMap<Genre, GenreShortDto>();
+            CreateMap<Genre, GenreLongDto>();
+
+            CreateMap<Episode, EpisodeShortDto>();
+            CreateMap<Episode, EpisodeLongDto>()
+                .ForMember(s => s.SeasonNumber, s => s.MapFrom(s => s.Season.Number));
+
+            CreateMap<LectorCreateDto, Lector>();
+            CreateMap<DirectorCreateDto, Director>();
+            CreateMap<SerieCreateDto, Serie>()
+                .ForMember(s => s.Genre, c => c.MapFrom(dto => new Genre() { Id = dto.GenreId }));
+            CreateMap<SeasonCreateDto, Season>()
+                .ForMember(s => s.Serie, c => c.MapFrom(dto => new Serie() { Id = dto.SerieId }))
+                .ForMember(s => s.Cast, c => c.MapFrom(dto => new Cast() { Id = dto.CastId }))
+                .ForMember(s => s.Director, c => c.MapFrom(dto => new Director() { Id = dto.DirectorId }));
+            CreateMap<GenreCreateDto, Genre>();
+            CreateMap<EpisodeCreateDto, Episode>()
+                .ForMember(s => s.Season, c => c.MapFrom(dto => new Season() { Id = dto.SeasonId }));
+            CreateMap<CastCreateDto, Cast>();
+        }
+    }
+}

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace AnimatedSeriesAPI.Controllers
+namespace AnimatedSeriesAPI.Models
 {
     public class GenreRepository : IGenreRepository
     {

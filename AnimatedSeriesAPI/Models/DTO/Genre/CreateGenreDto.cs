@@ -1,4 +1,4 @@
-﻿namespace AnimatedSeriesAPI.Controllers
+﻿namespace AnimatedSeriesAPI.Models
 {
     public class CreateGenreDto
     {
