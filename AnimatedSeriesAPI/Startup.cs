@@ -35,7 +35,6 @@ namespace AnimatedSeriesAPI
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<SeriesSeeder>();
             services.AddAutoMapper(this.GetType().Assembly);
-            services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AnimatedSeriesAPI", Version = "v1" });
