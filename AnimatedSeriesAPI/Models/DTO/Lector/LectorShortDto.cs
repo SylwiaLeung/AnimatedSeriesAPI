@@ -1,4 +1,4 @@
-﻿namespace AnimatedSeriesAPI.Models.DTO.Lector
+﻿namespace AnimatedSeriesAPI.Models
 {
     public class LectorshortDto
     {

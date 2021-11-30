@@ -1,4 +1,4 @@
-﻿namespace AnimatedSeriesAPI.Models.DTO.Season
+﻿namespace AnimatedSeriesAPI.Models
 {
     public class SeasonLongDto
     {

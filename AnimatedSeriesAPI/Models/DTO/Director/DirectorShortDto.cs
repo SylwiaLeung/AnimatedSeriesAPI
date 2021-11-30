@@ -1,4 +1,4 @@
-﻿namespace AnimatedSeriesAPI.Models.DTO.Director
+﻿namespace AnimatedSeriesAPI.Models
 {
     public class DirectorShortDto
     {

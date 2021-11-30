@@ -1,4 +1,4 @@
-﻿namespace AnimatedSeriesAPI.Models.DTO.Serie
+﻿namespace AnimatedSeriesAPI.Models
 {
     public class SerieShortDto
     {

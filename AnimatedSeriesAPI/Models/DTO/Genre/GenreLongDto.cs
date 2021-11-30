@@ -1,4 +1,4 @@
-﻿namespace AnimatedSeriesAPI.Models.DTO.Genre
+﻿namespace AnimatedSeriesAPI.Models
 {
     public class GenreLongDto
     {

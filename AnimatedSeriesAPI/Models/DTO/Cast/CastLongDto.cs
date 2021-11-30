@@ -1,4 +1,4 @@
-﻿namespace AnimatedSeriesAPI.Models.DTO.Cast
+﻿namespace AnimatedSeriesAPI.Models
 {
     public class CastShortDto
     {

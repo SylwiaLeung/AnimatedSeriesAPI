@@ -1,4 +1,4 @@
-﻿namespace AnimatedSeriesAPI.Models.DTO.Episode
+﻿namespace AnimatedSeriesAPI.Models
 {
     public class EpisodeLongDto
     {
