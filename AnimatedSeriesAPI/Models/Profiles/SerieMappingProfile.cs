@@ -22,7 +22,6 @@ namespace AnimatedSeriesAPI.Models
             CreateMap<Season, SeasonShortDto>();
 
             CreateMap<Lector, LectorShortDto>();
-            CreateMap<Lector, LectorLongDto>();
 
             CreateMap<Genre, GenreShortDto>();
             CreateMap<Genre, GenreLongDto>();
@@ -31,18 +30,18 @@ namespace AnimatedSeriesAPI.Models
             CreateMap<Episode, EpisodeLongDto>()
                 .ForMember(s => s.SeasonNumber, s => s.MapFrom(s => s.Season.Number));
 
-            CreateMap<LectorCreateDto, Lector>();
-            CreateMap<DirectorCreateDto, Director>();
-            CreateMap<SerieCreateDto, Serie>()
-                .ForMember(s => s.Genre, c => c.MapFrom(dto => new Genre() { Id = dto.GenreId }));
-            CreateMap<SeasonCreateDto, Season>()
-                .ForMember(s => s.Serie, c => c.MapFrom(dto => new Serie() { Id = dto.SerieId }))
-                .ForMember(s => s.Cast, c => c.MapFrom(dto => new Cast() { Id = dto.CastId }))
-                .ForMember(s => s.Director, c => c.MapFrom(dto => new Director() { Id = dto.DirectorId }));
-            CreateMap<GenreCreateDto, Genre>();
-            CreateMap<EpisodeCreateDto, Episode>()
-                .ForMember(s => s.Season, c => c.MapFrom(dto => new Season() { Id = dto.SeasonId }));
-            CreateMap<CastCreateDto, Cast>();
+            //CreateMap<LectorCreateDto, Lector>();
+            //CreateMap<DirectorCreateDto, Director>();
+            //CreateMap<SerieCreateDto, Serie>()
+            //    .ForMember(s => s.Genre, c => c.MapFrom(dto => new Genre() { Id = dto.GenreId }));
+            //CreateMap<SeasonCreateDto, Season>()
+            //    .ForMember(s => s.Serie, c => c.MapFrom(dto => new Serie() { Id = dto.SerieId }))
+            //    .ForMember(s => s.Cast, c => c.MapFrom(dto => new Cast() { Id = dto.CastId }))
+            //    .ForMember(s => s.Director, c => c.MapFrom(dto => new Director() { Id = dto.DirectorId }));
+            //CreateMap<GenreCreateDto, Genre>();
+            //CreateMap<EpisodeCreateDto, Episode>()
+            //    .ForMember(s => s.Season, c => c.MapFrom(dto => new Season() { Id = dto.SeasonId }));
+            //CreateMap<CastCreateDto, Cast>();
         }
     }
 }
