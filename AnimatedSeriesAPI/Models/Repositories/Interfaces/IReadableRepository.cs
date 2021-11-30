@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 
 namespace AnimatedSeriesAPI.Models
 {
-    public interface IReadableRepository<T>
+    public interface IReadableRepository<L, S>
     {
-        Task<T> GetSingle(int id);
-        Task<IEnumerable<T>> GetAll();
+        Task<L> GetSingle(int id);
+        Task<IEnumerable<S>> GetAll();
     }
 }

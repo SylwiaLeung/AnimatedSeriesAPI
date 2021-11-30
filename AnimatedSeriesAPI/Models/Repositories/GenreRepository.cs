@@ -20,7 +20,7 @@ namespace AnimatedSeriesAPI.Models
             throw new System.NotImplementedException();
         }
 
-        public Task<GenreShortDto> GetSingle(int id)
+        public Task<GenreLongDto> GetSingle(int id)
         {
             throw new System.NotImplementedException();
         }
