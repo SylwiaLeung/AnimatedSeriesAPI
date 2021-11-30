@@ -9,7 +9,7 @@ namespace AnimatedSeriesAPI.Entities
 
         [Required]
         public string Title { get; set; }
-        public int Number { get; set; }
+        public int EpisodeNumber { get; set; }
         public int SeasonId { get; set; }
         public virtual Season Season { get; set; }
     }
