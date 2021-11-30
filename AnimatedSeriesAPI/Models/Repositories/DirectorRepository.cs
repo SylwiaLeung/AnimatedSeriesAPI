@@ -1,19 +1,34 @@
-﻿using AnimatedSeriesAPI.Models.Repositories.Interfaces.ModelInterfaces;
+﻿using AnimatedSeriesAPI.Data;
+using AnimatedSeriesAPI.Models.Repositories.Interfaces.ModelInterfaces;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AnimatedSeriesAPI.Models.Repositories
 {
     public class DirectorRepository : IDirectorRepository
     {
-        public Task<IEnumerable<DirectorShortDto>> GetAll()
+        private readonly SeriesDbContext _context;
+        private readonly IMapper _mapper;
+
+        public DirectorRepository(SeriesDbContext context, IMapper mapper)
         {
-            throw new System.NotImplementedException();
+            _context = context;
+            _mapper = mapper;
         }
 
-        public Task<DirectorLongDto> GetSingle(int id)
+        public async Task<IEnumerable<DirectorShortDto>> GetAll()
         {
-            throw new System.NotImplementedException();
+            var listOfAllDirector = await _context.Directors.ToListAsync();
+            return _mapper.Map<IEnumerable<DirectorShortDto>>(listOfAllDirector);
+        }
+
+        public async Task<DirectorLongDto> GetSingle(int id)
+        {
+            var director = await _context.Directors.Include(x =>x.Seasons).SingleOrDefaultAsync(x => x.Id == id);
+            return _mapper.Map<DirectorLongDto>(director);      
         }
     }
 }
