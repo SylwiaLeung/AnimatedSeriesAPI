@@ -15,12 +15,12 @@ namespace AnimatedSeriesAPI.Models
             throw new System.NotImplementedException();
         }
 
-        public Task<IEnumerable<GenreDto>> GetAll()
+        public Task<IEnumerable<GenreShortDto>> GetAll()
         {
             throw new System.NotImplementedException();
         }
 
-        public Task<GenreDto> GetSingle(int id)
+        public Task<GenreShortDto> GetSingle(int id)
         {
             throw new System.NotImplementedException();
         }
