@@ -17,7 +17,7 @@ namespace AnimatedSeriesAPI.Models
                 .ForMember(s => s.GenreName, s => s.MapFrom(s => s.Genre.Name));
 
             CreateMap<Season, SeasonLongDto>()
-                .ForMember(s => s.SerieName, s => s.MapFrom(s => s.Serie.Title))
+                .ForMember(s => s.SerieTitle, s => s.MapFrom(s => s.Serie.Title))
                 .ForMember(s => s.DirectorName, s => s.MapFrom(s => s.Director.Name));
             CreateMap<Season, SeasonShortDto>();
 
@@ -28,7 +28,7 @@ namespace AnimatedSeriesAPI.Models
 
             CreateMap<Episode, EpisodeShortDto>();
             CreateMap<Episode, EpisodeLongDto>()
-                .ForMember(s => s.SeasonNumber, s => s.MapFrom(s => s.Season.Number));
+                .ForMember(s => s.SeasonNumber, s => s.MapFrom(s => s.Season.SeasonNumber));
 
             //CreateMap<LectorCreateDto, Lector>();
             //CreateMap<DirectorCreateDto, Director>();

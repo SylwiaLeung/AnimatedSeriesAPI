@@ -1,6 +1,14 @@
-﻿namespace AnimatedSeriesAPI.Models
+﻿using System.Collections.Generic;
+
+namespace AnimatedSeriesAPI.Models
 {
     public class SeasonLongDto
     {
+        public int Id { get; set; }
+        public int SeasonNumber { get; set; }
+        public string SerieTitle { get; set; }
+        public string DirectorName { get; set; }
+        public IEnumerable<LectorShortDto> Lectors { get; set; }
+        public IEnumerable<EpisodeShortDto> Episodes { get; set; }
     }
 }
