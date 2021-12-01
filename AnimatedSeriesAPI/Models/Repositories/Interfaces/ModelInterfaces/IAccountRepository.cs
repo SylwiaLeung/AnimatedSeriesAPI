@@ -1,8 +1,7 @@
-﻿using AnimatedSeriesAPI.Models;
-using AnimatedSeriesAPI.Models.Repositories;
+﻿
 using System.Threading.Tasks;
 
-namespace MusicAPI.Controllers
+namespace AnimatedSeriesAPI.Models.Repositories
 {
     public interface IAccountRepository
     {
