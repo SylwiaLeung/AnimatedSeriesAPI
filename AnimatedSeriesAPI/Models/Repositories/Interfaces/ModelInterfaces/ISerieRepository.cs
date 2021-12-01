@@ -6,6 +6,6 @@ namespace AnimatedSeriesAPI.Models
     public interface ISerieRepository : IReadableRepository<SerieLongDto, SerieShortDto>
     {
         Task<SeasonLongDto> GetSingleSeason(int serieId, int seasonId);
-        IEnumerable<SeasonShortDto> GetAllSeasons(int serieId);
+        Task<IEnumerable<SeasonShortDto>> GetAllSeasons(int serieId);
     }
 }
