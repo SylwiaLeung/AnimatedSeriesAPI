@@ -21,6 +21,11 @@ namespace AnimatedSeriesAPI.Middleware
             {
                 await next.Invoke(context);
             }
+            catch (BadRequestException badRequestException)
+            {
+                context.Response.StatusCode = 400;
+                await context.Response.WriteAsync(badRequestException.Message);
+            }
             catch (NotFoundException notFoundException)
             {
                 context.Response.StatusCode = 404;
@@ -28,10 +33,10 @@ namespace AnimatedSeriesAPI.Middleware
             }
             catch (Exception e)
             {
-                //_logger.LogError(e, e.Message);
+                _logger.LogError(e, e.Message);
 
                 context.Response.StatusCode = 500;
-                await context.Response.WriteAsync(e.Message);
+                await context.Response.WriteAsync("Internal Server Error from the middleware");
             }
         }
     }
