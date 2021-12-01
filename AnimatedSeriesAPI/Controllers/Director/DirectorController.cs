@@ -14,7 +14,6 @@ namespace AnimatedSeriesAPI.Controllers.Director
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Route("api/")]
     public class DirectorController : ControllerBase
     {
         private IDirectorRepository _directorRepo;
@@ -27,14 +26,14 @@ namespace AnimatedSeriesAPI.Controllers.Director
         }
 
         [HttpGet]
-        [Route("directors")]
+        //[Route("directors")]
         public async Task<ActionResult<IEnumerable<DirectorShortDto>>> GetAllDirectors()
         {
             return Ok(await _directorRepo.GetAll());
         }
 
         [HttpGet]
-        [Route("directors/{id}")]
+        [Route("{id}")]
         public async Task<ActionResult<DirectorLongDto>> GetDirector(int id)
         {
             return Ok(await _directorRepo.GetSingle(id));
@@ -42,14 +41,14 @@ namespace AnimatedSeriesAPI.Controllers.Director
 
 
         [HttpGet]
-        [Route("directors/{directorId}/seasons")]
+        [Route("{directorId}/seasons")]
         public async Task<ActionResult<IEnumerable<SeasonShortDto>>> GetDirectorAllSeasons(int directorId)
         {
             return Ok(await _directorRepo.GetDirectorAllSeasons(directorId));
         }
 
         [HttpPost]
-        [Route("directors")]
+        //[Route("directors")]
         public async Task<ActionResult> CreateDirector(DirectorCreateDto directorCreateDto)
         {
             int newDirectorId = await _directorRepo.Add(directorCreateDto);
@@ -57,7 +56,7 @@ namespace AnimatedSeriesAPI.Controllers.Director
         }
 
         [HttpDelete]
-        [Route("directors/{id}")]
+        [Route("{id}")]
         public async Task<ActionResult> DeleteDirector(int id)
         {
             await _directorRepo.Delete(id);
@@ -67,7 +66,7 @@ namespace AnimatedSeriesAPI.Controllers.Director
 
 
         [HttpPatch]
-        [Route("directors/{id}")]
+        [Route("{id}")]
         public async Task<ActionResult> UpdateDirector(int id, JsonPatchDocument<DirectorUpdateDto> patchDoc )
         {
             AnimatedSeriesAPI.Entities.Director directorToUpdate = await _directorRepo.GetDirectorById(id);
