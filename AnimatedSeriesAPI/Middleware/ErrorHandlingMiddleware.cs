@@ -23,11 +23,15 @@ namespace AnimatedSeriesAPI.Middleware
             }
             catch (BadRequestException badRequestException)
             {
+                _logger.LogError(badRequestException, badRequestException.Message);
+
                 context.Response.StatusCode = 400;
                 await context.Response.WriteAsync(badRequestException.Message);
             }
             catch (NotFoundException notFoundException)
             {
+                _logger.LogError(notFoundException, notFoundException.Message);
+
                 context.Response.StatusCode = 404;
                 await context.Response.WriteAsync(notFoundException.Message);
             }
