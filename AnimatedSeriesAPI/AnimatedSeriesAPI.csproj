@@ -31,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Models\Profiles\SerieMappingProfile.cs" />
+    <None Include="Services\Profiles\SerieMappingProfile.cs" />
   </ItemGroup>
 
 </Project>
