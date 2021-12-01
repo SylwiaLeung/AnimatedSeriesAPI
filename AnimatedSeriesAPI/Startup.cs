@@ -51,7 +51,8 @@ namespace AnimatedSeriesAPI
                 };
             });
 
-            services.AddControllers().AddFluentValidation();
+            services.AddControllers().AddFluentValidation().AddNewtonsoftJson();
+
             services.AddDbContext<SeriesDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<SeriesSeeder>();

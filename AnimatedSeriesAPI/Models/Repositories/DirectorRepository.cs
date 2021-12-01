@@ -83,6 +83,8 @@ namespace AnimatedSeriesAPI.Models.Repositories
             await _context.SaveChangesAsync();
         }
 
+
+        //Temp
         public async Task Update(JsonPatchDocument<DirectorUpdateDto> patchDoc, int id)
         {
             var directorToUpdate = await _context.Directors.FirstOrDefaultAsync(x =>x.Id == id);
@@ -101,6 +103,25 @@ namespace AnimatedSeriesAPI.Models.Repositories
             //    throw BadRequestResult("Updating value is null");
             //}
 
+            _context.Directors.Update(directorToUpdate);
+            await _context.SaveChangesAsync();
+        }
+
+
+
+        public async Task<Director> GetDirectorById(int id)
+        {
+            var directorToUpdate = await _context.Directors.FirstOrDefaultAsync(x => x.Id == id);
+            if (directorToUpdate is null)
+            {
+                throw new NotFoundException("Director not found");
+            }
+            return directorToUpdate;
+        }
+
+
+        public async Task UpdateV2(Director directorToUpdate)
+        {
             _context.Directors.Update(directorToUpdate);
             await _context.SaveChangesAsync();
         }
