@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace AnimatedSeriesAPI.Controllers.Director
 {
+    [Route("api/[controller]")]
     [ApiController]
     [Route("api/")]
     public class DirectorController : ControllerBase
@@ -35,7 +36,7 @@ namespace AnimatedSeriesAPI.Controllers.Director
 
 
         [HttpGet]
-        [Route("directors/{directorid}/seasons")]
+        [Route("directors/{directorId}/seasons")]
         public async Task<ActionResult<IEnumerable<SeasonShortDto>>> GetDirectorAllSeasons(int directorId)
         {
             return Ok(await _directorRepo.GetDirectorAllSeasons(directorId));

@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace AnimatedSeriesAPI.Controllers
 {
-    [Route("api/season")]
+    //[Route("api/season")]
+    [Route("api/[controller]")]
     [ApiController]
     public class SeasonController : ControllerBase
     {

@@ -1,4 +1,6 @@
 using AnimatedSeriesAPI.Data;
+using AnimatedSeriesAPI.Entities;
+using AnimatedSeriesAPI.Exceptions;
 using AutoMapper;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
@@ -19,37 +21,68 @@ namespace AnimatedSeriesAPI.Models
             _mapper = mapper;
         }
 
-        public Task<int> Add(GenreCreateDto obj)
+        public async Task<int> Add(GenreCreateDto obj)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            throw new System.NotImplementedException();
+            var genre = await _context
+                .Genres
+                .FirstOrDefaultAsync(i => i.Id == id);
+
+            if (genre is null)
+                throw new NotFoundException("Genre not found");
+
+            _context.Genres.Remove(genre);
+            await _context.SaveChangesAsync();
+
+
         }
 
         public async Task<IEnumerable<GenreShortDto>> GetAll()
         {
             var genres = await _context.Genres.ToListAsync();
 
-            var genresDto = _mapper.Map<IEnumerable<GenreShortDto>>(genres);
+            if (genres is null)
+                throw new NotFoundException("Genres not found");
+
+            var genresDto = _mapper.Map<List<GenreShortDto>>(genres);
 
             return genresDto;
         }
 
         public async Task<GenreLongDto> GetSingle(int id)
         {
-            var genre = await _context.Genres.Include(x => x.Series).FirstOrDefaultAsync(i => i.Id == id);
+            var genre = await _context.Genres
+                .Include(x => x.Series)
+                .FirstOrDefaultAsync(i => i.Id == id);
+
+            if (genre is null || genre.Id != id)
+                throw new NotFoundException("Genre not found");
 
             var genreDto = _mapper.Map<GenreLongDto>(genre);
 
             return genreDto;
         }
 
-        public Task Update(JsonPatchDocument<GenreUpdateDto> obj, int id)
+        public async Task Update(JsonPatchDocument<GenreUpdateDto> patchDoc, int id)
         {
-            throw new System.NotImplementedException();
+            var genreModelToUpdate = await _context.Genres
+                .FirstOrDefaultAsync(i => i.Id == id);
+            if (genreModelToUpdate is null)
+                throw new NotFoundException("Genre not found");
+
+
+            var genreDtoToPatch = _mapper.Map<GenreUpdateDto>(genreModelToUpdate);
+
+            patchDoc.ApplyTo(genreDtoToPatch);
+
+            _mapper.Map(genreDtoToPatch, genreModelToUpdate);
+
+            _context.Genres.Update(genreModelToUpdate);
+            await _context.SaveChangesAsync();
         }
     }
 }
