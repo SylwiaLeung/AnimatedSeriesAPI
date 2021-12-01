@@ -6,6 +6,6 @@ namespace AnimatedSeriesAPI.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public IEnumerable<SerieShortDto> Series { get; set; }
+        public List<SerieShortDto> Series { get; set; }
     }
 }

@@ -26,12 +26,14 @@ namespace AnimatedSeriesAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<GenreLongDto> Get([FromRoute] int id)
+        public async Task<ActionResult<GenreLongDto>> Get([FromRoute] int id)
         {
-            var genre = _genreRepository.GetSingle(id);
+            var genre = await _genreRepository.GetSingle(id);
 
             return Ok(genre);
         }
+
+
 
         [HttpPost]
         public async Task<ActionResult> CreatePlaylist([FromBody] GenreCreateDto dto)

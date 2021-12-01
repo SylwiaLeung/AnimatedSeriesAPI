@@ -1,4 +1,5 @@
 using AnimatedSeriesAPI.Data;
+using AnimatedSeriesAPI.Exceptions;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -23,14 +24,27 @@ namespace AnimatedSeriesAPI.Models
             throw new System.NotImplementedException();
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            throw new System.NotImplementedException();
+            var genre = await _context
+                .Genres
+                .FirstOrDefaultAsync(i => i.Id == id);
+
+            if (genre is null)
+                throw new NotFoundException("Genre not found");
+
+            _context.Genres.Remove(genre);
+            await _context.SaveChangesAsync();
+
+
         }
 
         public async Task<IEnumerable<GenreShortDto>> GetAll()
         {
             var genres = await _context.Genres.ToListAsync();
+
+            if (genres is null)
+                throw new NotFoundException("Genres not found");
 
             var genresDto = _mapper.Map<List<GenreShortDto>>(genres);
 
@@ -39,7 +53,12 @@ namespace AnimatedSeriesAPI.Models
 
         public async Task<GenreLongDto> GetSingle(int id)
         {
-            var genre = await _context.Genres.Include(x => x.Series).FirstOrDefaultAsync(i => i.Id == id);
+            var genre = await _context.Genres
+                .Include(x => x.Series)
+                .FirstOrDefaultAsync(i => i.Id == id);
+
+            if (genre is null || genre.Id != id)
+                throw new NotFoundException("Genre not found");
 
             var genreDto = _mapper.Map<GenreLongDto>(genre);
 
