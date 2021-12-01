@@ -8,7 +8,7 @@ namespace AnimatedSeriesAPI.Models
         public int SeasonNumber { get; set; }
         public string SerieTitle { get; set; }
         public string DirectorName { get; set; }
-        public IEnumerable<LectorShortDto> Lectors { get; set; }
-        public IEnumerable<EpisodeShortDto> Episodes { get; set; }
+        public List<LectorShortDto> Lectors { get; set; }
+        public List<EpisodeShortDto> Episodes { get; set; }
     }
 }

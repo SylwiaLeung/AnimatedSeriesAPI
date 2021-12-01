@@ -1,5 +1,7 @@
 using AnimatedSeriesAPI.Data;
 using AnimatedSeriesAPI.Models;
+using AnimatedSeriesAPI.Models.Repositories;
+using AnimatedSeriesAPI.Models.Repositories.Interfaces.ModelInterfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -28,8 +30,12 @@ namespace AnimatedSeriesAPI
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<SeriesSeeder>();
             services.AddAutoMapper(this.GetType().Assembly);
-            services.AddScoped<ISerieRepository, SerieRepository>();
+            
             services.AddScoped<IGenreRepository, GenreRepository>();
+            services.AddScoped<ISeasonRepository, SeasonRepository>();
+            services.AddScoped<ISerieRepository, SerieRepository>();
+
+            services.AddScoped<IDirectorRepository, DirectorRepository>();
             services.AddSwaggerGen();
         }
 
