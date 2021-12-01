@@ -30,12 +30,12 @@ namespace AnimatedSeriesAPI
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<SeriesSeeder>();
             services.AddAutoMapper(this.GetType().Assembly);
-            
+
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddScoped<ISeasonRepository, SeasonRepository>();
             services.AddScoped<ISerieRepository, SerieRepository>();
-
             services.AddScoped<IDirectorRepository, DirectorRepository>();
+
             services.AddSwaggerGen();
         }
 
