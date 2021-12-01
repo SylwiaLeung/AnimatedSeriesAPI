@@ -4,6 +4,8 @@ using AnimatedSeriesAPI.Middleware;
 using AnimatedSeriesAPI.Models;
 using AnimatedSeriesAPI.Models.Repositories;
 using AnimatedSeriesAPI.Models.Repositories.Interfaces.ModelInterfaces;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -49,7 +51,7 @@ namespace AnimatedSeriesAPI
                 };
             });
 
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation();
             services.AddDbContext<SeriesDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<SeriesSeeder>();
@@ -59,15 +61,29 @@ namespace AnimatedSeriesAPI
             services.AddScoped<ISeasonRepository, SeasonRepository>();
             services.AddScoped<ISerieRepository, SerieRepository>();
             services.AddScoped<IDirectorRepository, DirectorRepository>();
+            services.AddScoped<IAccountRepository, AccountRepository>();
+
             services.AddScoped<ErrorHandlingMiddleware>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+            services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
 
             services.AddSwaggerGen();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("FrontEndClient", builder =>
+                    builder.AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .WithOrigins(Configuration["AllowedOrigins"])
+                    );
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SeriesSeeder seeder)
         {
+            app.UseCors("FrontEndClient");
+
             seeder.Seed();
 
             if (env.IsDevelopment())
@@ -78,6 +94,8 @@ namespace AnimatedSeriesAPI
             }
 
             app.UseMiddleware<ErrorHandlingMiddleware>();
+
+            app.UseAuthentication();
 
             app.UseHttpsRedirection();
 
