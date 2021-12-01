@@ -1,5 +1,6 @@
 using AnimatedSeriesAPI.Data;
 using AutoMapper;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,7 +47,7 @@ namespace AnimatedSeriesAPI.Models
             return genreDto;
         }
 
-        public Task Update(GenreUpdateDto obj, int id)
+        public Task Update(JsonPatchDocument<GenreUpdateDto> obj, int id)
         {
             throw new System.NotImplementedException();
         }

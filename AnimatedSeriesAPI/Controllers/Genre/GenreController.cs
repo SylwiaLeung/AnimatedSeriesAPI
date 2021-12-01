@@ -47,12 +47,12 @@ namespace AnimatedSeriesAPI.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
-        public ActionResult<GenreUpdateDto> Update([FromRoute] int id, [FromBody] GenreUpdateDto dto)
-        {
-            _genreRepository.Update(dto, id);
+        //[HttpPatch("{id}")]
+        //public ActionResult<GenreUpdateDto> Update([FromRoute] int id, [FromBody] GenreUpdateDto dto)
+        //{
+        //    _genreRepository.Update(dto, id);
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
     }
 }
