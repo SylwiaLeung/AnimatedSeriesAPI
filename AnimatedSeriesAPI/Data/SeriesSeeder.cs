@@ -18,6 +18,11 @@ namespace AnimatedSeriesAPI.Data
         {
             if (_context.Database.CanConnect())
             {
+                if (!_context.Roles.Any())
+                {
+                    _context.Roles.AddRange(GetRoles());
+                    _context.SaveChanges();
+                }
                 if (!_context.Genres.Any())
                 {
                     _context.Genres.AddRange(GetGenres());
@@ -59,6 +64,22 @@ namespace AnimatedSeriesAPI.Data
                     _context.SaveChanges();
                 }
             }
+        }
+
+        private IEnumerable<Role> GetRoles()
+        {
+            List<Role> roles = new()
+            {
+                new Role()
+                {
+                    Name = "User"
+                },
+                new Role()
+                {
+                    Name = "Admin"
+                }
+            };
+            return roles;
         }
 
         private IEnumerable<CastLector> GetCastLectors()

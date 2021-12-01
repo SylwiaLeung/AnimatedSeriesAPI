@@ -18,6 +18,8 @@ namespace AnimatedSeriesAPI.Data
         public DbSet<Lector> Lectors { get; set; }
         public DbSet<CastLector> CastLectors { get; set; }
         public DbSet<Genre> Genres { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
