@@ -81,11 +81,6 @@ namespace AnimatedSeriesAPI.Models
 
             _mapper.Map(genreDtoToPatch, genreModelToUpdate);
 
-            //if (!TryValidateModel(authorToPatch))
-            //{
-            //    return ValidationProblem(ModelState);
-            //}
-
             _context.Genres.Update(genreModelToUpdate);
             await _context.SaveChangesAsync();
         }

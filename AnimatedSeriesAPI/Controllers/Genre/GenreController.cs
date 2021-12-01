@@ -53,24 +53,12 @@ namespace AnimatedSeriesAPI.Controllers
 
 
 
-        //[HttpPatch("{id}")]
-        //public async Task<ActionResult> PartialGenreUpdate(JsonPatchDocument<GenreUpdateDto> patchDoc, int id)
-        //{
-        //    var genreModel = await _genreRepository.GetSingle(id);
+        [HttpPatch("{id}")]
+        public async Task<ActionResult> PartialGenreUpdate(JsonPatchDocument<GenreUpdateDto> patchDoc, int id)
+        {
+            await _genreRepository.Update(patchDoc, id);
 
-
-        //    var authorToPatch = _mapper.Map<GenreUpdateDto>(genreModel);
-        //    patchDoc.ApplyTo(authorToPatch, ModelState);
-        //    if (!TryValidateModel(authorToPatch))
-        //    {
-        //        return ValidationProblem(ModelState);
-        //    }
-
-        //    _mapper.Map(authorToPatch, authorModel);
-        //    await _authorRepo.UpdateAsync(authorModel);
-        //    await _authorRepo.SaveAsync();
-
-        //    return NoContent();
-        //}
+            return NoContent();
+        }
     }
 }
