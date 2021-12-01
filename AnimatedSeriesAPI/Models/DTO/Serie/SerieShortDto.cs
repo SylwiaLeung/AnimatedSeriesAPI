@@ -1,4 +1,6 @@
-﻿namespace AnimatedSeriesAPI.Models
+﻿using System.Collections.Generic;
+
+namespace AnimatedSeriesAPI.Models
 {
     public class SerieShortDto
     {

@@ -1,19 +1,14 @@
-using AnimatedSeriesAPI.Controllers;
 using AnimatedSeriesAPI.Data;
+using AnimatedSeriesAPI.Models;
+using AnimatedSeriesAPI.Models.Repositories;
+using AnimatedSeriesAPI.Models.Repositories.Interfaces.ModelInterfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AnimatedSeriesAPI
 {
@@ -35,10 +30,13 @@ namespace AnimatedSeriesAPI
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<SeriesSeeder>();
             services.AddAutoMapper(this.GetType().Assembly);
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AnimatedSeriesAPI", Version = "v1" });
-            });
+
+            services.AddScoped<IGenreRepository, GenreRepository>();
+            services.AddScoped<ISeasonRepository, SeasonRepository>();
+            services.AddScoped<ISerieRepository, SerieRepository>();
+            services.AddScoped<IDirectorRepository, DirectorRepository>();
+
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,11 +47,18 @@ namespace AnimatedSeriesAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AnimatedSeriesAPI v1"));
+                //app.UseSwagger();
+                //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AnimatedSeriesAPI v1"));
             }
 
             app.UseHttpsRedirection();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "AnimatedSeriesAPI");
+            });
 
             app.UseRouting();
 

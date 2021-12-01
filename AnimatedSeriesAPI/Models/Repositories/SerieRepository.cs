@@ -2,9 +2,9 @@ using AnimatedSeriesAPI.Controllers;
 using AnimatedSeriesAPI.Data;
 using AnimatedSeriesAPI.Entities;
 using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using AnimatedSeriesAPI.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,29 +15,40 @@ namespace AnimatedSeriesAPI.Models
     {
         private readonly SeriesDbContext _context;
         private readonly IMapper _mapper;
-        private readonly ILogger<SerieController> _logger;
 
-        public SerieRepository(SeriesDbContext context, IMapper mapper, ILogger<SerieController> logger)
+        public SerieRepository(SeriesDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
-            _logger = logger;
         }
 
         public async Task<IEnumerable<SerieShortDto>> GetAll()
         {
             var series = await _context
                 .Series
+                .Include(s => s.Genre)
+                .Include(x => x.Seasons)
+                .ThenInclude(x => x.Director)
+                .Include(x => x.Seasons)
+                .ThenInclude(x => x.Episodes)
                 .ToListAsync();
 
-            var serieShortDtos = _mapper.Map<List<SerieShortDto>>(series);
+            var serieDtos = _mapper.Map<List<SerieShortDto>>(series);
 
-            return serieShortDtos;
+            return serieDtos;
         }
 
         public async Task<SerieLongDto> GetSingle(int id)
         {
-            var serie = await GetSerieAsync(id);
+            var serie = await _context
+                .Series
+                .Include(x => x.Seasons)
+                .ThenInclude(x => x.Director)
+                .Include(x => x.Genre)
+                .FirstOrDefaultAsync(s => s.Id == id);
+
+            if (serie is null)
+                throw new NotFoundException("Serie not found");
 
             var serieDto = _mapper.Map<SerieLongDto>(serie);
 
@@ -73,7 +84,9 @@ namespace AnimatedSeriesAPI.Models
         {
             var serie = await _context
                 .Series
-                .FirstOrDefaultAsync(g => g.Id == serieId);
+                .Include(x => x.Seasons)
+                .Include(x => x.Genre)
+                .FirstOrDefaultAsync(s => s.Id == serieId);
 
             if (serie is null)
                 throw new NotFoundException("Serie not found");
