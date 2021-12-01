@@ -1,6 +1,8 @@
 using AnimatedSeriesAPI.Data;
+using AnimatedSeriesAPI.Entities;
 using AnimatedSeriesAPI.Exceptions;
 using AutoMapper;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +21,7 @@ namespace AnimatedSeriesAPI.Models
             _mapper = mapper;
         }
 
-        public Task<int> Add(GenreCreateDto obj)
+        public async Task<int> Add(GenreCreateDto obj)
         {
             throw new System.NotImplementedException();
         }
@@ -65,9 +67,27 @@ namespace AnimatedSeriesAPI.Models
             return genreDto;
         }
 
-        public Task Update(GenreUpdateDto obj, int id)
+        public async Task Update(JsonPatchDocument<GenreUpdateDto> patchDoc, int id)
         {
-            throw new System.NotImplementedException();
+            var genreModelToUpdate = await _context.Genres
+                .FirstOrDefaultAsync(i => i.Id == id);
+            if (genreModelToUpdate is null)
+                throw new NotFoundException("Genre not found");
+
+
+            var genreDtoToPatch = _mapper.Map<GenreUpdateDto>(genreModelToUpdate);
+
+            patchDoc.ApplyTo(genreDtoToPatch);
+
+            _mapper.Map(genreDtoToPatch, genreModelToUpdate);
+
+            //if (!TryValidateModel(authorToPatch))
+            //{
+            //    return ValidationProblem(ModelState);
+            //}
+
+            _context.Genres.Update(genreModelToUpdate);
+            await _context.SaveChangesAsync();
         }
     }
 }

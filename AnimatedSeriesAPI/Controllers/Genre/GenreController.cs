@@ -1,4 +1,5 @@
 using AnimatedSeriesAPI.Models;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,15 +35,6 @@ namespace AnimatedSeriesAPI.Controllers
         }
 
 
-
-        [HttpPost]
-        public async Task<ActionResult> CreatePlaylist([FromBody] GenreCreateDto dto)
-        {
-            var id = await _genreRepository.Add(dto);
-
-            return Created($"/genre/{id}", null);
-        }
-
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete([FromRoute] int id)
         {
@@ -51,12 +43,34 @@ namespace AnimatedSeriesAPI.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
-        public ActionResult<GenreUpdateDto> Update([FromRoute] int id, [FromBody] GenreUpdateDto dto)
-        {
-            _genreRepository.Update(dto, id);
+        //[HttpDelete("{id}")]
+        //public ActionResult<GenreUpdateDto> Update([FromRoute] int id, [FromBody] GenreUpdateDto dto)
+        //{
+        //    _genreRepository.Update(dto, id);
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
+
+
+
+        //[HttpPatch("{id}")]
+        //public async Task<ActionResult> PartialGenreUpdate(JsonPatchDocument<GenreUpdateDto> patchDoc, int id)
+        //{
+        //    var genreModel = await _genreRepository.GetSingle(id);
+
+
+        //    var authorToPatch = _mapper.Map<GenreUpdateDto>(genreModel);
+        //    patchDoc.ApplyTo(authorToPatch, ModelState);
+        //    if (!TryValidateModel(authorToPatch))
+        //    {
+        //        return ValidationProblem(ModelState);
+        //    }
+
+        //    _mapper.Map(authorToPatch, authorModel);
+        //    await _authorRepo.UpdateAsync(authorModel);
+        //    await _authorRepo.SaveAsync();
+
+        //    return NoContent();
+        //}
     }
 }
