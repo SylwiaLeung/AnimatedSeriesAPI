@@ -1,4 +1,5 @@
 using AnimatedSeriesAPI.Data;
+using AnimatedSeriesAPI.Middleware;
 using AnimatedSeriesAPI.Models;
 using AnimatedSeriesAPI.Models.Repositories;
 using AnimatedSeriesAPI.Models.Repositories.Interfaces.ModelInterfaces;
@@ -35,6 +36,7 @@ namespace AnimatedSeriesAPI
             services.AddScoped<ISeasonRepository, SeasonRepository>();
             services.AddScoped<ISerieRepository, SerieRepository>();
             services.AddScoped<IDirectorRepository, DirectorRepository>();
+            services.AddScoped<ErrorHandlingMiddleware>();
 
             services.AddSwaggerGen();
         }
@@ -47,18 +49,13 @@ namespace AnimatedSeriesAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //app.UseSwagger();
-                //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AnimatedSeriesAPI v1"));
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AnimatedSeriesAPI v1"));
             }
 
+            app.UseMiddleware<ErrorHandlingMiddleware>();
+
             app.UseHttpsRedirection();
-
-            app.UseSwagger();
-
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "AnimatedSeriesAPI");
-            });
 
             app.UseRouting();
 
