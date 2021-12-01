@@ -32,7 +32,7 @@ namespace AnimatedSeriesAPI.Models
         {
             var genres = await _context.Genres.ToListAsync();
 
-            var genresDto = _mapper.Map<IEnumerable<GenreShortDto>>(genres);
+            var genresDto = _mapper.Map<List<GenreShortDto>>(genres);
 
             return genresDto;
         }

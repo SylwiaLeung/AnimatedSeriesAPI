@@ -1,11 +1,13 @@
 using AnimatedSeriesAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AnimatedSeriesAPI.Controllers
 {
-    [ApiController]
     [Route("api/genre")]
+    [ApiController]
     public class GenreController : ControllerBase
     {
         private readonly IGenreRepository _genreRepository;
@@ -16,7 +18,7 @@ namespace AnimatedSeriesAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<GenreShortDto>> GetAll()
+        public async Task<ActionResult<IEnumerable<GenreShortDto>>> GetAll()
         {
             var genre = await _genreRepository.GetAll() ;
 
