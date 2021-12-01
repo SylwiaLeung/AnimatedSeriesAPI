@@ -26,11 +26,6 @@ namespace AnimatedSeriesAPI.Models
         {
             var series = await _context
                 .Series
-                .Include(s => s.Genre)
-                .Include(x => x.Seasons)
-                .ThenInclude(x => x.Director)
-                .Include(x => x.Seasons)
-                .ThenInclude(x => x.Episodes)
                 .ToListAsync();
 
             var serieDtos = _mapper.Map<List<SerieShortDto>>(series);
@@ -40,12 +35,7 @@ namespace AnimatedSeriesAPI.Models
 
         public async Task<SerieLongDto> GetSingle(int id)
         {
-            var serie = await _context
-                .Series
-                .Include(x => x.Seasons)
-                .ThenInclude(x => x.Director)
-                .Include(x => x.Genre)
-                .FirstOrDefaultAsync(s => s.Id == id);
+            var serie = await GetSerieAsync(id);
 
             if (serie is null)
                 throw new NotFoundException("Serie not found");
@@ -70,6 +60,10 @@ namespace AnimatedSeriesAPI.Models
 
             var season = await _context
                 .Seasons
+                .Include(s => s.Director)
+                .Include(s => s.Episodes)
+                .Include(s => s.Cast)
+                .ThenInclude(c => c.CastLectors)
                 .FirstOrDefaultAsync(d => d.Id == seasonId);
 
             if (season is null || season.SerieId != serieId)
@@ -84,8 +78,8 @@ namespace AnimatedSeriesAPI.Models
         {
             var serie = await _context
                 .Series
+                .Include(s => s.Genre)
                 .Include(x => x.Seasons)
-                .Include(x => x.Genre)
                 .FirstOrDefaultAsync(s => s.Id == serieId);
 
             if (serie is null)
