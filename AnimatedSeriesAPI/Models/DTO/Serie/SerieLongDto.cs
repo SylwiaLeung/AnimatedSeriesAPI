@@ -7,6 +7,6 @@ namespace AnimatedSeriesAPI.Models
         public int Id { get; set; }
         public string Title { get; set; }
         public string GenreName { get; set; }
-        public List<SeasonLongDto> Seasons { get; set; }
+        public List<SeasonShortDto> Seasons { get; set; }
     }
 }
