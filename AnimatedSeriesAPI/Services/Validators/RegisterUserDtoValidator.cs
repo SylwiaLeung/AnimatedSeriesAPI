@@ -9,7 +9,7 @@ namespace AnimatedSeriesAPI.Models
     {
 
         [System.Obsolete]
-        public RegisterUserDtoValidator(SeriesDbContext dbContext)
+        public RegisterUserDtoValidator(SeriesDbContext dbContext, ResourceManagerService resourceManager)
         {
             CascadeMode = CascadeMode.StopOnFirstFailure;
 
@@ -20,6 +20,7 @@ namespace AnimatedSeriesAPI.Models
                 .Matches("[A-Z]").WithMessage(Resources.ResourceManager.GetString("passwordUpperCase"))
                 .Matches("[a-z]").WithMessage(Resources.ResourceManager.GetString("passwordLowerCase"))
                 .Matches("[0-9]").WithMessage(Resources.ResourceManager.GetString("passwordMinDigit"));
+
             RuleFor(x => x)
                 .Custom((value, context) =>
                 {
