@@ -1,4 +1,5 @@
 using AnimatedSeriesAPI.Models;
+using AnimatedSeriesAPI.Models.DTO.Episode;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -30,6 +31,20 @@ namespace AnimatedSeriesAPI.Controllers
             var serieDto = await _daoService.GetSingle(serieId, seasonId, episodeId);
 
             return Ok(serieDto);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateEpisode([FromBody] EpisodeCreateDto episodeCreateDto)
+        {
+            int newEpisodeId = await _daoService.Add(episodeCreateDto);
+            return Created($"/episodes/{newEpisodeId}", null);
+        }
+
+        [HttpDelete("{episodeId")]
+        public async Task<ActionResult> DeleteDirector(int directorId)
+        {
+            await _daoService.Delete(directorId);
+            return NoContent();
         }
     }
 }

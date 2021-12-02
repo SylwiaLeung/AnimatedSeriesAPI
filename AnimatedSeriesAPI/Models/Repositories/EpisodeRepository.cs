@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using AnimatedSeriesAPI.Properties;
+using AnimatedSeriesAPI.Models.DTO.Episode;
 
 namespace AnimatedSeriesAPI.Models
 {
@@ -71,5 +72,43 @@ namespace AnimatedSeriesAPI.Models
 
             return season;
         }
+
+        public Task Update(Episode obj)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<Episode> GetById(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<EpisodeLongDto> GetSingle(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<IEnumerable<EpisodeShortDto>> GetAll()
+        {
+            throw new System.NotImplementedException();
+        }
+
+
+
+
+
+        public async Task<int> Add(EpisodeCreateDto episodeCreateDto)
+        {
+            var episodeModel = _mapper.Map<Episode>(episodeCreateDto);
+            return episodeModel.Id;
+        }
+
+        public async Task Delete(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+
+
     }
 }
