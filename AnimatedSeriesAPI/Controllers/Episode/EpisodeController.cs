@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AnimatedSeriesAPI.Controllers
 {
-    [Route("api/series/{serieId}/seasons/{seasonId}/episodes")]
+    [Route("api/Series/{serieId}/Season/{seasonId}/[controller]")]
     [ApiController]
     public class EpisodeController : ControllerBase
     {
