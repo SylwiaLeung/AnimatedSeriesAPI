@@ -106,6 +106,15 @@ namespace AnimatedSeriesAPI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You must specify page number and page size.
+        /// </summary>
+        internal static string noPageInfo {
+            get {
+                return ResourceManager.GetString("noPageInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password cannot be empty.
         /// </summary>
         internal static string passwordEmpty {
