@@ -11,8 +11,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using System.Reflection;
-using System.Resources;
 using System.Text;
 
 namespace AnimatedSeriesAPI
@@ -35,7 +33,6 @@ namespace AnimatedSeriesAPI
 
         public static void AddValidationLayer(this IServiceCollection services)
         {
-            services.AddScoped<ResourceManagerService>();
             services.AddScoped<ErrorHandlingMiddleware>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();

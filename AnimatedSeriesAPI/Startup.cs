@@ -33,7 +33,7 @@ namespace AnimatedSeriesAPI
                 options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
                 {
                     Title = "Animated Series API",
-                    Description = "This API is dream come true for all animated series lovers ;) \n\n" +
+                    Description = "This API is a dream come true for all animated series lovers ;) \n\n" +
                     "Authors: Sylwia L.,  Rafał O.,  Karol B.",
                     Version = "v1"
                 });

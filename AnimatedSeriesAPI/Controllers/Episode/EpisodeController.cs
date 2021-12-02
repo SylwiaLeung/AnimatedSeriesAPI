@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AnimatedSeriesAPI.Controllers
 {
-    [Route("api/Serie/{serieId}/Season/{seasonId}/[controller]")]
+    [Route("api/Series/{serieId}/Season/{seasonId}/[controller]")]
     [ApiController]
     public class EpisodeController : ControllerBase
     {
@@ -40,7 +40,7 @@ namespace AnimatedSeriesAPI.Controllers
             return Created($"/episodes/{newEpisodeId}", null);
         }
 
-        [HttpDelete("{episodeId")]
+        [HttpDelete("{episodeId}")]
         public async Task<ActionResult> DeleteDirector(int directorId)
         {
             await _daoService.Delete(directorId);
