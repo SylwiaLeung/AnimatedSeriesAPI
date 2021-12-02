@@ -83,13 +83,16 @@ namespace AnimatedSeriesAPI.Models.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateV2(Director directorToUpdate)
+        public async Task Update(Director directorToUpdate)
         {
+            if (directorToUpdate is null)
+                throw new NotFoundException("Director to update not found");
+
             _context.Directors.Update(directorToUpdate);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Director> GetDirectorAsync(int id)
+        public async Task<Director> GetById(int id)
         {
             var directorToUpdate = await _context.Directors.FirstOrDefaultAsync(x => x.Id == id);
             if (directorToUpdate is null)

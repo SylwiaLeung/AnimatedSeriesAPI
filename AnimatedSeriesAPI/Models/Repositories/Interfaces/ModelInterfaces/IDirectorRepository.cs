@@ -12,7 +12,5 @@ namespace AnimatedSeriesAPI.Models.Repositories.Interfaces.ModelInterfaces
         IEditableRepository<Director, DirectorCreateDto>
     {
         Task<IEnumerable<SeasonShortDto>> GetDirectorAllSeasons(int directorId);
-        Task<Director> GetDirectorById(int directorId);
-        Task UpdateV2(Director directorToUpdate);
     }
 }
