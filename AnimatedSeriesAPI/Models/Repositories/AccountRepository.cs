@@ -1,6 +1,7 @@
 using AnimatedSeriesAPI.Data;
 using AnimatedSeriesAPI.Entities;
 using AnimatedSeriesAPI.Middleware;
+using AnimatedSeriesAPI.Properties;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -32,12 +33,12 @@ namespace AnimatedSeriesAPI.Models.Repositories
                 .FirstOrDefaultAsync(u => u.Email == dto.Email);
 
             if (user is null)
-                throw new BadRequestException("Wrong email or password");
+                throw new BadRequestException(Resources.ResourceManager.GetString("wrongEmailPassword"));
 
             var result = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, dto.Password);
 
             if (result == PasswordVerificationResult.Failed)
-                throw new BadRequestException("Wrong email or password");
+                throw new BadRequestException(Resources.ResourceManager.GetString("wrongEmailPassword"));
 
             var claims = new List<Claim>
             {
