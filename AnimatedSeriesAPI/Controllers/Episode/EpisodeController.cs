@@ -40,7 +40,7 @@ namespace AnimatedSeriesAPI.Controllers
             return Created($"/episodes/{newEpisodeId}", null);
         }
 
-        [HttpDelete("{episodeId")]
+        [HttpDelete("{episodeId}")]
         public async Task<ActionResult> DeleteDirector(int directorId)
         {
             await _daoService.Delete(directorId);
