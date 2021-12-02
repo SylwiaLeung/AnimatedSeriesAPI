@@ -22,7 +22,7 @@ namespace AnimatedSeriesAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAuthenticationLayer(Configuration);
-            services.AddControllers().AddFluentValidation();
+            services.AddControllers().AddFluentValidation().AddNewtonsoftJson();
             services.AddPersistanceLayer(Configuration, this);
             services.AddValidationLayer();
             services.AddSwaggerGen();
