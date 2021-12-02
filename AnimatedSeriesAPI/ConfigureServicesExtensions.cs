@@ -35,7 +35,6 @@ namespace AnimatedSeriesAPI
 
         public static void AddValidationLayer(this IServiceCollection services)
         {
-            services.AddScoped<ResourceManagerService>();
             services.AddScoped<ErrorHandlingMiddleware>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();

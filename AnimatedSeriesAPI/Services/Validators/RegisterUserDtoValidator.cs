@@ -9,7 +9,7 @@ namespace AnimatedSeriesAPI.Models
     {
 
         [System.Obsolete]
-        public RegisterUserDtoValidator(SeriesDbContext dbContext, ResourceManagerService resourceManager)
+        public RegisterUserDtoValidator(SeriesDbContext dbContext)
         {
             CascadeMode = CascadeMode.StopOnFirstFailure;
 
