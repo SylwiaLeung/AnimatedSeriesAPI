@@ -1,4 +1,5 @@
 using AnimatedSeriesAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ namespace AnimatedSeriesAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class SerieController : ControllerBase
     {
         private readonly ISerieRepository _daoService;
@@ -17,6 +19,7 @@ namespace AnimatedSeriesAPI.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<PagedResult<SerieShortDto>>> GetAllSeries([FromQuery] SeriesQuery query)
         {
             var serieDtos = await _daoService.GetAll(query);
@@ -25,6 +28,7 @@ namespace AnimatedSeriesAPI.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<SerieLongDto>> GetSingleSerie([FromRoute] int id)
         {
             var serieDto = await _daoService.GetSingle(id);
