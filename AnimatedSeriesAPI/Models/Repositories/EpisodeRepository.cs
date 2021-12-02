@@ -73,42 +73,26 @@ namespace AnimatedSeriesAPI.Models
             return season;
         }
 
-        public Task Update(Episode obj)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<Episode> GetById(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<EpisodeLongDto> GetSingle(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<IEnumerable<EpisodeShortDto>> GetAll()
-        {
-            throw new System.NotImplementedException();
-        }
-
-
-
-
-
         public async Task<int> Add(EpisodeCreateDto episodeCreateDto)
         {
             var episodeModel = _mapper.Map<Episode>(episodeCreateDto);
+            await _context.AddAsync(episodeModel);
+            await _context.SaveChangesAsync();
             return episodeModel.Id;
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(int serieId, int seasonId, int episodeId)
         {
-            throw new System.NotImplementedException();
+            var season = await GetSeasonAsync(serieId, seasonId);
+
+            var episode = season.Episodes.FirstOrDefault(s => s.Id == episodeId);
+
+            if (episode is null || episode.SeasonId != seasonId)
+                throw new NotFoundException("Playlist not found");
+
+            _context.Episodes.Remove(episode);
+            await _context.SaveChangesAsync();
         }
-
-
 
     }
 }

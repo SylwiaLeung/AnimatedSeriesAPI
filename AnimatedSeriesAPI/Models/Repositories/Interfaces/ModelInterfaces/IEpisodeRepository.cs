@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 
 namespace AnimatedSeriesAPI.Models
 {
-    public interface IEpisodeRepository :
-        IEditableRepository<Episode,EpisodeCreateDto>,
-        IReadableRepository<EpisodeLongDto, EpisodeShortDto>
+    public interface IEpisodeRepository
     {
         Task<IEnumerable<EpisodeShortDto>> GetAll(int serieId, int seasonId);
         Task<EpisodeLongDto> GetSingle(int serieId, int seasonId, int episodeId);
+        Task<int> Add(EpisodeCreateDto episodeCreateDto);
+        Task Delete(int serieId, int seasonId, int episodeId);
+
     }
 }
