@@ -21,9 +21,13 @@ namespace AnimatedSeriesAPI.Models
             _mapper = mapper;
         }
 
-        public async Task<int> Add(GenreCreateDto obj)
+        public async Task<int> Add(GenreCreateDto genreCreateDto)
         {
-            throw new System.NotImplementedException();
+            var genreModel = _mapper.Map<Genre>(genreCreateDto);
+            await _context.AddAsync(genreModel);
+            await _context.SaveChangesAsync();
+
+            return genreModel.Id;
         }
 
         public async Task Delete(int id)
