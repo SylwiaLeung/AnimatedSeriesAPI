@@ -1,7 +1,11 @@
-﻿using AnimatedSeriesAPI.Models;
+﻿using AnimatedSeriesAPI.Entities;
+using AnimatedSeriesAPI.Models;
+using AnimatedSeriesAPI.Models.DTO;
 using AnimatedSeriesAPI.Models.DTO.Director;
 using AnimatedSeriesAPI.Models.Repositories.Interfaces.ModelInterfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,10 +17,12 @@ namespace AnimatedSeriesAPI.Controllers.Director
     public class DirectorController : ControllerBase
     {
         private IDirectorRepository _directorRepo;
+        private readonly IMapper _mapper;
 
-        public DirectorController(IDirectorRepository directorRepo)
+        public DirectorController(IDirectorRepository directorRepo, IMapper mapper)
         {
             _directorRepo = directorRepo;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -53,6 +59,7 @@ namespace AnimatedSeriesAPI.Controllers.Director
         [Route("{id}")]
         public async Task<ActionResult> DeleteDirector(int id)
         {
+            await _directorRepo.Delete(id);
             return NoContent();
         }
 
@@ -62,7 +69,19 @@ namespace AnimatedSeriesAPI.Controllers.Director
         [Route("{id}")]
         public async Task<ActionResult> UpdateDirector(int id, JsonPatchDocument<DirectorUpdateDto> patchDoc )
         {
-            await _directorRepo.Update(patchDoc, id);
+            AnimatedSeriesAPI.Entities.Director directorToUpdate = await _directorRepo.GetDirectorById(id);
+
+            DirectorUpdateDto directorToPatch = _mapper.Map<DirectorUpdateDto>(directorToUpdate); 
+
+            patchDoc.ApplyTo(directorToPatch, ModelState);
+            if (!TryValidateModel(directorToPatch))
+            {
+                return ValidationProblem(ModelState);
+            }
+
+            _mapper.Map(directorToPatch, directorToUpdate);
+            await _directorRepo.UpdateV2(directorToUpdate);
+
             return NoContent();
         }
 
