@@ -1,13 +1,14 @@
 using AnimatedSeriesAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AnimatedSeriesAPI.Controllers
 {
-    //[Route("api/season")]
-    [Route("api/seasons")]
+    [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class SeasonController : ControllerBase
     {
         private readonly ISeasonRepository _daoService;
