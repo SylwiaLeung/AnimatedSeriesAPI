@@ -95,7 +95,7 @@ namespace AnimatedSeriesAPI.Controllers.Director
         [Route("{id}")]
         public async Task<ActionResult> UpdateDirector(int id, JsonPatchDocument<DirectorUpdateDto> patchDoc )
         {
-            var directorToUpdate = await _directorRepo.GetDirectorAsync(id);
+            var directorToUpdate = await _directorRepo.GetById(id);
 
             DirectorUpdateDto directorToPatch = _mapper.Map<DirectorUpdateDto>(directorToUpdate); 
 
@@ -106,7 +106,7 @@ namespace AnimatedSeriesAPI.Controllers.Director
             }
 
             _mapper.Map(directorToPatch, directorToUpdate);
-            await _directorRepo.UpdateV2(directorToUpdate);
+            await _directorRepo.Update(directorToUpdate);
 
             return NoContent();
         }

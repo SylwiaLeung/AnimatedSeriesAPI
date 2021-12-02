@@ -70,6 +70,15 @@ namespace AnimatedSeriesAPI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This email address is already registered.
+        /// </summary>
+        internal static string emailTaken {
+            get {
+                return ResourceManager.GetString("emailTaken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Genre not found.
         /// </summary>
         internal static string genreNotFound {
@@ -84,6 +93,15 @@ namespace AnimatedSeriesAPI.Properties {
         internal static string internalServerError {
             get {
                 return ResourceManager.GetString("internalServerError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password cannot be empty.
+        /// </summary>
+        internal static string passwordEmpty {
+            get {
+                return ResourceManager.GetString("passwordEmpty", resourceCulture);
             }
         }
         
@@ -120,24 +138,6 @@ namespace AnimatedSeriesAPI.Properties {
         internal static string passwordMinDigit {
             get {
                 return ResourceManager.GetString("passwordMinDigit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Password cannot be empty.
-        /// </summary>
-        internal static string passwordNotEmpty {
-            get {
-                return ResourceManager.GetString("passwordNotEmpty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This email address is already registered.
-        /// </summary>
-        internal static string passwordTaken {
-            get {
-                return ResourceManager.GetString("passwordTaken", resourceCulture);
             }
         }
         
