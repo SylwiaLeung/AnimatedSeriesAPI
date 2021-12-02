@@ -25,8 +25,10 @@ namespace AnimatedSeriesAPI.Models
 
             CreateMap<Lector, LectorShortDto>();
 
-            CreateMap<Genre, GenreShortDto>();
-            CreateMap<Genre, GenreLongDto>();
+            CreateMap<Genre, GenreShortDto>().ReverseMap();
+            CreateMap<Genre, GenreLongDto>().ReverseMap();
+            CreateMap<Genre, GenreCreateDto>().ReverseMap();
+            CreateMap<Genre, GenreUpdateDto>().ReverseMap();
 
             CreateMap<Episode, EpisodeShortDto>();
             CreateMap<Episode, EpisodeLongDto>()
