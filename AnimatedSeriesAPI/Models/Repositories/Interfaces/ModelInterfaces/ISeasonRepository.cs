@@ -3,9 +3,7 @@ using System.Threading.Tasks;
 
 namespace AnimatedSeriesAPI.Models
 {
-    public interface ISeasonRepository
+    public interface ISeasonRepository : IReadableRepository<SeasonLongDto, SeasonShortDto>
     {
-        Task<IEnumerable<SeasonLongDto>> GetAll();
-        Task<SeasonLongDto> GetSingle(int id);
     }
 }
