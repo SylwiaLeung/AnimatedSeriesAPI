@@ -56,7 +56,7 @@ namespace AnimatedSeriesAPI.Controllers
         /// </summary>
         /// <returns>Returns list of SeasonShortDto</returns>
         /// <response code="200">Returns dtos for all sesons in specified serie</response>
-        [HttpGet("{serieId}/season")]
+        [HttpGet("{serieId}/seasons")]
         public async Task<ActionResult<IEnumerable<SeasonShortDto>>> GetAllSeasons([FromRoute] int serieId)
         {
             var serieDtos = await _daoService.GetAllSeasons(serieId);
@@ -69,7 +69,7 @@ namespace AnimatedSeriesAPI.Controllers
         /// </summary>
         /// <returns>Returns SeasonLongDto</returns>
         /// <response code="200">Returns season specified by id in specified serie</response>
-        [HttpGet("{serieId}/season/{seasonId}")]
+        [HttpGet("{serieId}/seasons/{seasonId}")]
         public async Task<ActionResult<SeasonLongDto>> GetSingleSeason([FromRoute] int serieId, [FromRoute] int seasonId)
         {
             var sesonDto = await _daoService.GetSingleSeason(serieId, seasonId);
