@@ -1,4 +1,4 @@
-using AnimatedSeriesAPI.Data;
+﻿using AnimatedSeriesAPI.Data;
 using AnimatedSeriesAPI.Middleware;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.IO;
+using System.Reflection;
 
 namespace AnimatedSeriesAPI
 {
@@ -25,7 +28,20 @@ namespace AnimatedSeriesAPI
             services.AddControllers().AddFluentValidation().AddNewtonsoftJson();
             services.AddPersistanceLayer(Configuration, this);
             services.AddValidationLayer();
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Title = "Animated Series API",
+                    Description = "This API is dream come true for all animated series lovers ;) \n\n" +
+                    "Authors: Sylwia L.,  Rafał O.,  Karol B.",
+                    Version = "v1"
+                });
+
+                var fileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var filePath = Path.Combine(AppContext.BaseDirectory, fileName);
+                options.IncludeXmlComments(filePath);
+            });
             services.AddCorsPolicy(Configuration);
         }
 

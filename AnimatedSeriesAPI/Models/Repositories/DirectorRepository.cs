@@ -3,6 +3,7 @@ using AnimatedSeriesAPI.Entities;
 using AnimatedSeriesAPI.Exceptions;
 using AnimatedSeriesAPI.Models.DTO.Director;
 using AnimatedSeriesAPI.Models.Repositories.Interfaces.ModelInterfaces;
+using AnimatedSeriesAPI.Properties;
 using AutoMapper;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -28,10 +29,6 @@ namespace AnimatedSeriesAPI.Models.Repositories
         {
             IEnumerable<Director> listOfAllDirector = await _context.Directors.ToListAsync();
 
-            if(listOfAllDirector is null)
-            {
-                throw new NotFoundException("Directors not found");
-            }
             return _mapper.Map<IEnumerable<DirectorShortDto>>(listOfAllDirector);
         }
 
@@ -40,7 +37,7 @@ namespace AnimatedSeriesAPI.Models.Repositories
             var director = await _context.Directors.Include(x => x.Seasons).ThenInclude(x =>x.Serie).SingleOrDefaultAsync(x => x.Id == id);
             if (director is null)
             {
-                throw new NotFoundException("Director not found");
+                throw new NotFoundException(Resources.ResourceManager.GetString("directorNotFound"));
             }
             return _mapper.Map<DirectorLongDto>(director);
         }
@@ -51,13 +48,9 @@ namespace AnimatedSeriesAPI.Models.Repositories
             var director = await _context.Directors.Include(x =>x.Seasons).ThenInclude(x => x.Serie).SingleOrDefaultAsync(x =>x.Id == directorId);
             if (director is null)
             {
-                throw new NotFoundException("Director not found");
+                throw new NotFoundException(Resources.ResourceManager.GetString("directorNotFound"));
             }
             var listOfDirectorSeasons = director.Seasons.ToList();
-            if (listOfDirectorSeasons is null)
-            {
-                throw new NotFoundException("Director's seasons not found");
-            }
 
             return _mapper.Map<IEnumerable<SeasonShortDto>>(listOfDirectorSeasons);
         }
@@ -76,7 +69,7 @@ namespace AnimatedSeriesAPI.Models.Repositories
             var directorToDelete = await _context.Directors.FirstOrDefaultAsync(x => x.Id == id);
             if (directorToDelete is null)
             {
-                throw new NotFoundException("Director not found");
+                throw new NotFoundException(Resources.ResourceManager.GetString("directorNotFound"));
             }
 
             _context.Directors.Remove(directorToDelete);
@@ -86,7 +79,7 @@ namespace AnimatedSeriesAPI.Models.Repositories
         public async Task Update(Director directorToUpdate)
         {
             if (directorToUpdate is null)
-                throw new NotFoundException("Director to update not found");
+                throw new NotFoundException(Resources.ResourceManager.GetString("directorNotFound"));
 
             _context.Directors.Update(directorToUpdate);
             await _context.SaveChangesAsync();
@@ -97,7 +90,7 @@ namespace AnimatedSeriesAPI.Models.Repositories
             var directorToUpdate = await _context.Directors.FirstOrDefaultAsync(x => x.Id == id);
             if (directorToUpdate is null)
             {
-                throw new NotFoundException("Director not found");
+                throw new NotFoundException(Resources.ResourceManager.GetString("directorNotFound"));
             }
             return directorToUpdate;
         }

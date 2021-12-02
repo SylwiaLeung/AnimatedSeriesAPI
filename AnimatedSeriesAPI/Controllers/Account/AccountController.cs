@@ -16,6 +16,21 @@ namespace MusicAPI.Controllers
             _accountService = accountService;
         }
 
+        /// <summary>
+        /// POST method register new account and add to database
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns>Return endpoint to new object</returns>
+        /// /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /Todo
+        ///     {
+        ///        "name": "New Director"
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="201">Returns endpoint to new director</response>
         [HttpPost("register")]
         public async Task<ActionResult> RegisterUser([FromBody] RegisterUserDto dto)
         {
@@ -24,6 +39,21 @@ namespace MusicAPI.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// POST method pass user login
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns>Returns JWT token</returns>
+        /// /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /Todo
+        ///     {
+        ///        "name": "New Director"
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">Returns jwt token</response>
         [HttpPost("login")]
         public async Task<ActionResult> Login([FromBody] LoginDto dto)
         {
