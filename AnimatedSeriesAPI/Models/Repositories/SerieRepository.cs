@@ -82,6 +82,7 @@ namespace AnimatedSeriesAPI.Models
                 .Include(s => s.Episodes)
                 .Include(s => s.Cast)
                 .ThenInclude(c => c.CastLectors)
+                .ThenInclude(c => c.Lector)
                 .FirstOrDefaultAsync(d => d.Id == seasonId);
 
             if (season is null || season.SerieId != serieId)
