@@ -32,16 +32,15 @@ namespace AnimatedSeriesAPI.Models
 
         public async Task Delete(int id)
         {
-            var genre = await _context
+            var genreToDelete = await _context
                 .Genres
                 .FirstOrDefaultAsync(i => i.Id == id);
 
-            if (genre is null)
+            if (genreToDelete is null)
                 throw new NotFoundException("Genre not found");
 
-            _context.Genres.Remove(genre);
+            _context.Genres.Remove(genreToDelete);
             await _context.SaveChangesAsync();
-
 
         }
 
@@ -49,12 +48,21 @@ namespace AnimatedSeriesAPI.Models
         {
             var genres = await _context.Genres.ToListAsync();
 
-            if (genres is null)
-                throw new NotFoundException("Genres not found");
-
             var genresDto = _mapper.Map<List<GenreShortDto>>(genres);
 
             return genresDto;
+        }
+
+        public async Task<Genre> GetById(int id)
+        {
+            var genre = await _context.Genres
+              .Include(x => x.Series)
+              .FirstOrDefaultAsync(i => i.Id == id);
+
+            if (genre is null || genre.Id != id)
+                throw new NotFoundException("Genre not found");
+
+            return genre;
         }
 
         public async Task<GenreLongDto> GetSingle(int id)
@@ -71,22 +79,15 @@ namespace AnimatedSeriesAPI.Models
             return genreDto;
         }
 
-        public async Task Update(JsonPatchDocument<GenreUpdateDto> patchDoc, int id)
+        public async Task Update(Genre genreToUpdate)
         {
-            var genreModelToUpdate = await _context.Genres
-                .FirstOrDefaultAsync(i => i.Id == id);
-            if (genreModelToUpdate is null)
-                throw new NotFoundException("Genre not found");
 
+            if (genreToUpdate is null)
+                throw new NotFoundException("Genre to update not found");
 
-            var genreDtoToPatch = _mapper.Map<GenreUpdateDto>(genreModelToUpdate);
-
-            patchDoc.ApplyTo(genreDtoToPatch);
-
-            _mapper.Map(genreDtoToPatch, genreModelToUpdate);
-
-            _context.Genres.Update(genreModelToUpdate);
+            _context.Genres.Update(genreToUpdate);
             await _context.SaveChangesAsync();
+            
         }
     }
 }

@@ -8,6 +8,7 @@ namespace AnimatedSeriesAPI.Models
     {
         Task<int> Add(U obj);
         Task Delete(int id);
-        Task Update(JsonPatchDocument<T> obj, int id);
+        Task Update(T obj);
+        Task<T> GetById(int id);
     }
 }
