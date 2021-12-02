@@ -120,11 +120,17 @@
   <data name="directorNotFound" xml:space="preserve">
     <value>Director not found</value>
   </data>
+  <data name="emailTaken" xml:space="preserve">
+    <value>This email address is already registered</value>
+  </data>
   <data name="genreNotFound" xml:space="preserve">
     <value>Genre not found</value>
   </data>
   <data name="internalServerError" xml:space="preserve">
     <value>Internal Server Error from the middleware</value>
+  </data>
+  <data name="passwordEmpty" xml:space="preserve">
+    <value>Password cannot be empty</value>
   </data>
   <data name="passwordLowerCase" xml:space="preserve">
     <value>Password must contain a lower-case letter</value>
@@ -137,12 +143,6 @@
   </data>
   <data name="passwordMinDigit" xml:space="preserve">
     <value>Password must contain at least 1 digit</value>
-  </data>
-  <data name="passwordNotEmpty" xml:space="preserve">
-    <value>Password cannot be empty</value>
-  </data>
-  <data name="passwordTaken" xml:space="preserve">
-    <value>This email address is already registered</value>
   </data>
   <data name="passwordUpperCase" xml:space="preserve">
     <value>Password must contain an upper-case letter</value>
