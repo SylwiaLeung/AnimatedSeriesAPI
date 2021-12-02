@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 
 namespace AnimatedSeriesAPI.Controllers
 {
-    //[Route("api/serie")]
     [Route("api/[controller]")]
     [ApiController]
     public class SerieController : ControllerBase
@@ -33,7 +32,7 @@ namespace AnimatedSeriesAPI.Controllers
             return Ok(serieDto);
         }
 
-        [HttpGet("{id}/season")]
+        [HttpGet("{id}/Season")]
         public async Task<ActionResult<IEnumerable<SerieShortDto>>> GetAllSeasons([FromRoute] int id)
         {
             var serieDtos = await _daoService.GetAllSeasons(id);
@@ -41,7 +40,7 @@ namespace AnimatedSeriesAPI.Controllers
             return Ok(serieDtos);
         }
 
-        [HttpGet("{serieId}/season/{seasonId}")]
+        [HttpGet("{serieId}/season/{SeasonId}")]
         public async Task<ActionResult<SerieLongDto>> GetSingleSeason([FromRoute] int serieId, [FromRoute] int seasonId)
         {
             var serieDto = await _daoService.GetSingleSeason(serieId, seasonId);

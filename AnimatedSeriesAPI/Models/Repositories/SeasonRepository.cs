@@ -22,15 +22,13 @@ namespace AnimatedSeriesAPI.Models
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<SeasonLongDto>> GetAll()
+        public async Task<IEnumerable<SeasonShortDto>> GetAll()
         {
             var seasons = await _context
                 .Seasons
-                .Include(x => x.Director)
-                .Include(x => x.Episodes)
                 .ToListAsync();
 
-            var seasonDtos = _mapper.Map<List<SeasonLongDto>>(seasons);
+            var seasonDtos = _mapper.Map<List<SeasonShortDto>>(seasons);
 
             return seasonDtos;
         }

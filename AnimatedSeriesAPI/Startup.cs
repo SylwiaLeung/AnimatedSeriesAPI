@@ -1,20 +1,11 @@
 using AnimatedSeriesAPI.Data;
-using AnimatedSeriesAPI.Entities;
 using AnimatedSeriesAPI.Middleware;
-using AnimatedSeriesAPI.Models;
-using AnimatedSeriesAPI.Models.Repositories;
-using AnimatedSeriesAPI.Models.Repositories.Interfaces.ModelInterfaces;
-using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 namespace AnimatedSeriesAPI
 {

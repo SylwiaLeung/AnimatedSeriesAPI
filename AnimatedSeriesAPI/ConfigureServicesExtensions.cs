@@ -25,6 +25,7 @@ namespace AnimatedSeriesAPI
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddScoped<ISeasonRepository, SeasonRepository>();
             services.AddScoped<ISerieRepository, SerieRepository>();
+            services.AddScoped<IEpisodeRepository, EpisodeRepository>();
             services.AddScoped<IDirectorRepository, DirectorRepository>();
             services.AddScoped<IAccountRepository, AccountRepository>();
         }
