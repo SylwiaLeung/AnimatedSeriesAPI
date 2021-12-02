@@ -1,14 +1,12 @@
-using AnimatedSeriesAPI.Controllers;
 using AnimatedSeriesAPI.Data;
 using AnimatedSeriesAPI.Entities;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using AnimatedSeriesAPI.Exceptions;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AnimatedSeriesAPI.Properties;
+using System.Linq;
 
 namespace AnimatedSeriesAPI.Models
 {
@@ -21,17 +19,36 @@ namespace AnimatedSeriesAPI.Models
         {
             _context = context;
             _mapper = mapper;
-        }
+        }   
 
-        public async Task<IEnumerable<SerieShortDto>> GetAll()
+        public async Task<PagedResult<SerieLongDto>> GetAll(SeriesQuery query)
         {
+            if (query.PageNumber == 0 || query.PageSize == 0)
+                throw new NotFoundException(Resources.ResourceManager.GetString("noPageInfo"));
+
             var series = await _context
                 .Series
+                .Include(s => s.Genre)
+                .Include(x => x.Seasons)
                 .ToListAsync();
 
-            var serieDtos = _mapper.Map<List<SerieShortDto>>(series);
+            var serieDtos = _mapper.Map<List<SerieLongDto>>(series);
 
-            return serieDtos;
+            var baseQuery = serieDtos
+                .Where(s => query.SearchPhrase == null
+                || s.Title.ToLower().Contains(query.SearchPhrase.ToLower())
+                || s.GenreName.ToLower().Contains(query.SearchPhrase.ToLower()));
+
+            var filteredDtos = baseQuery
+                .Skip(query.PageSize * (query.PageNumber - 1))
+                .Take(query.PageSize)
+                .ToList();
+
+            var totalItemsCount = baseQuery.Count();
+
+            var result = new PagedResult<SerieLongDto>(filteredDtos, totalItemsCount, query.PageSize, query.PageNumber);
+
+            return result;
         }
 
         public async Task<SerieLongDto> GetSingle(int id)

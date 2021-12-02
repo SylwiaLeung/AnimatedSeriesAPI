@@ -4,10 +4,10 @@ using System.Linq;
 
 namespace AnimatedSeriesAPI.Services
 {
-    public class SongsQueryValidator : AbstractValidator<SeriesQuery>
+    public class SeriesQueryValidator : AbstractValidator<SeriesQuery>
     {
-        private int[] allowedPageSizes = new[] { 1, 3, 5 };
-        public SongsQueryValidator()
+        private int[] allowedPageSizes = new[] { 1, 2, 5 };
+        public SeriesQueryValidator()
         {
             RuleFor(r => r.PageNumber).GreaterThanOrEqualTo(1);
             RuleFor(r => r.PageSize).Custom((value, context) =>

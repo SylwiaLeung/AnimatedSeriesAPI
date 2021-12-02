@@ -132,6 +132,9 @@
   <data name="internalServerError" xml:space="preserve">
     <value>Internal Server Error from the middleware</value>
   </data>
+  <data name="noPageInfo" xml:space="preserve">
+    <value>You must specify page number and page size</value>
+  </data>
   <data name="passwordEmpty" xml:space="preserve">
     <value>Password cannot be empty</value>
   </data>
