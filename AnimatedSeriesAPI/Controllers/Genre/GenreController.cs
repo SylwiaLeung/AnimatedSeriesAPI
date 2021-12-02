@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace AnimatedSeriesAPI.Controllers
 {
     /// <summary>
-    /// Director API controller offers GET, POST, PATCH, DELETE request methods
+    /// Genre API controller offers GET, POST, PATCH, DELETE request methods
     /// </summary>
     [Route("api/genre")]
     [ApiController]
