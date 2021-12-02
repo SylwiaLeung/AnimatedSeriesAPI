@@ -20,17 +20,8 @@ namespace MusicAPI.Controllers
         /// POST method register new account and add to database
         /// </summary>
         /// <param name="dto"></param>
-        /// <returns>Return endpoint to new object</returns>
-        /// /// <remarks>
-        /// Sample request:
-        ///
-        ///     POST /Todo
-        ///     {
-        ///        "name": "New Director"
-        ///     }
-        ///
-        /// </remarks>
-        /// <response code="201">Returns endpoint to new director</response>
+        /// <returns>Returns endpoint to new object</returns>
+        /// <response code="200">Returns endpoint to new user</response>
         [HttpPost("register")]
         public async Task<ActionResult> RegisterUser([FromBody] RegisterUserDto dto)
         {
@@ -44,16 +35,7 @@ namespace MusicAPI.Controllers
         /// </summary>
         /// <param name="dto"></param>
         /// <returns>Returns JWT token</returns>
-        /// /// <remarks>
-        /// Sample request:
-        ///
-        ///     POST /Todo
-        ///     {
-        ///        "name": "New Director"
-        ///     }
-        ///
-        /// </remarks>
-        /// <response code="200">Returns jwt token</response>
+        /// <response code="200">Returns JWT token</response>
         [HttpPost("login")]
         public async Task<ActionResult> Login([FromBody] LoginDto dto)
         {

@@ -11,7 +11,7 @@ namespace AnimatedSeriesAPI.Controllers
     /// <summary>
     /// Genre API controller offers GET, POST, PATCH, DELETE request methods
     /// </summary>
-    [Route("api/genre")]
+    [Route("api/genres")]
     [ApiController]
     public class GenreController : ControllerBase
     {
