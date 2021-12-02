@@ -1,14 +1,12 @@
-using AnimatedSeriesAPI.Controllers;
 using AnimatedSeriesAPI.Data;
 using AnimatedSeriesAPI.Entities;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using AnimatedSeriesAPI.Exceptions;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using AnimatedSeriesAPI.Properties;
 
 namespace AnimatedSeriesAPI.Models
 {
@@ -34,9 +32,18 @@ namespace AnimatedSeriesAPI.Models
             return episodeDtos;
         }
 
-        public async Task<EpisodeLongDto> GetSingle(int id)
+        public async Task<EpisodeLongDto> GetSingle(int serieId, int seasonId, int episodeId)
         {
-            throw new NotImplementedException();
+            await GetSerieAsync(serieId);
+            var season = await GetSeasonAsync(serieId, seasonId);
+
+            var episodeInDb = season.Episodes.FirstOrDefault(e => e.Id == episodeId);
+
+            if (episodeInDb is null || season.SerieId != serieId || episodeInDb.SeasonId != seasonId)
+                throw new NotFoundException(Resources.ResourceManager.GetString("episodeNotFound"));
+            var episodeDto = _mapper.Map<EpisodeLongDto>(episodeInDb);
+
+            return episodeDto;
         }
 
         private async Task<Serie> GetSerieAsync(int serieId)
@@ -47,7 +54,7 @@ namespace AnimatedSeriesAPI.Models
                 .FirstOrDefaultAsync(s => s.Id == serieId);
 
             if (serie is null)
-                throw new NotFoundException("Serie not found");
+                throw new NotFoundException(Resources.ResourceManager.GetString("serieNotFound"));
 
             return serie;
         }
@@ -60,7 +67,7 @@ namespace AnimatedSeriesAPI.Models
                 .FirstOrDefaultAsync(d => d.Id == seasonId);
 
             if (season is null || season.SerieId != serieId)
-                throw new NotFoundException("Season not found");
+                throw new NotFoundException(Resources.ResourceManager.GetString("seasonNotFound"));
 
             return season;
         }

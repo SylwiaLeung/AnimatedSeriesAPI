@@ -8,6 +8,7 @@ using AnimatedSeriesAPI.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AnimatedSeriesAPI.Properties;
 
 namespace AnimatedSeriesAPI.Models
 {
@@ -38,7 +39,7 @@ namespace AnimatedSeriesAPI.Models
             var serie = await GetSerieAsync(id);
 
             if (serie is null)
-                throw new NotFoundException("Serie not found");
+                throw new NotFoundException(Resources.ResourceManager.GetString("serieNotFound"));
 
             var serieDto = _mapper.Map<SerieLongDto>(serie);
 
@@ -67,7 +68,7 @@ namespace AnimatedSeriesAPI.Models
                 .FirstOrDefaultAsync(d => d.Id == seasonId);
 
             if (season is null || season.SerieId != serieId)
-                throw new NotFoundException("Season not found");
+                throw new NotFoundException(Resources.ResourceManager.GetString("seasonNotFound"));
 
             var seasonDto = _mapper.Map<SeasonLongDto>(season);
 
@@ -83,7 +84,7 @@ namespace AnimatedSeriesAPI.Models
                 .FirstOrDefaultAsync(s => s.Id == serieId);
 
             if (serie is null)
-                throw new NotFoundException("Serie not found");
+                throw new NotFoundException(Resources.ResourceManager.GetString("serieNotFound"));
 
             return serie;
         }

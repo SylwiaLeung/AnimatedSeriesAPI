@@ -8,6 +8,7 @@ using AnimatedSeriesAPI.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AnimatedSeriesAPI.Properties;
 
 namespace AnimatedSeriesAPI.Models
 {
@@ -42,7 +43,7 @@ namespace AnimatedSeriesAPI.Models
                 .FirstOrDefaultAsync(s => s.Id == id);
 
             if (season is null)
-                throw new NotFoundException("Season not found");
+                throw new NotFoundException(Resources.ResourceManager.GetString("seasonNotFound"));
 
             var seasonDto = _mapper.Map<SeasonLongDto>(season);
 

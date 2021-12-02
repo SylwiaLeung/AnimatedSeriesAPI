@@ -123,6 +123,9 @@
   <data name="emailTaken" xml:space="preserve">
     <value>This email address is already registered</value>
   </data>
+  <data name="episodeNotFound" xml:space="preserve">
+    <value>Episode not found</value>
+  </data>
   <data name="genreNotFound" xml:space="preserve">
     <value>Genre not found</value>
   </data>

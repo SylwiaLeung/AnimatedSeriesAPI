@@ -1,4 +1,5 @@
 using AnimatedSeriesAPI.Data;
+using AnimatedSeriesAPI.Properties;
 using FluentValidation;
 using System.Linq;
 
@@ -14,17 +15,18 @@ namespace AnimatedSeriesAPI.Models
 
             RuleFor(x => x.Email).NotEmpty().EmailAddress();
             RuleFor(x => x.Password)
-                .NotEmpty().WithMessage(resourceManager.Manager.GetString("passwordEmpty"))
-                .MinimumLength(6).WithMessage(resourceManager.Manager.GetString("passwordMinCharacters"))
-                .Matches("[A-Z]").WithMessage(resourceManager.Manager.GetString("passwordUpperCase"))
-                .Matches("[a-z]").WithMessage(resourceManager.Manager.GetString("passwordLowerCase"))
-                .Matches("[0-9]").WithMessage(resourceManager.Manager.GetString("passwordMinDigit"));
+                .NotEmpty().WithMessage(Resources.ResourceManager.GetString("passwordEmpty"))
+                .MinimumLength(6).WithMessage(Resources.ResourceManager.GetString("passwordMinCharacters"))
+                .Matches("[A-Z]").WithMessage(Resources.ResourceManager.GetString("passwordUpperCase"))
+                .Matches("[a-z]").WithMessage(Resources.ResourceManager.GetString("passwordLowerCase"))
+                .Matches("[0-9]").WithMessage(Resources.ResourceManager.GetString("passwordMinDigit"));
+
             RuleFor(x => x)
                 .Custom((value, context) =>
                 {
                     if (value.Password != value.ConfirmPassword)
                     {
-                        context.AddFailure(nameof(value.Password), resourceManager.Manager.GetString("passwordMatch"));
+                        context.AddFailure(nameof(value.Password), Resources.ResourceManager.GetString("passwordMatch"));
                     }
                 });
 
@@ -34,7 +36,7 @@ namespace AnimatedSeriesAPI.Models
                     var emailUsed = dbContext.Users.Any(u => u.Email == value);
                     if (emailUsed)
                     {
-                        context.AddFailure("Email", resourceManager.Manager.GetString("emailTaken"));
+                        context.AddFailure("Email", Resources.ResourceManager.GetString("emailTaken"));
                     }
                 });
         }
