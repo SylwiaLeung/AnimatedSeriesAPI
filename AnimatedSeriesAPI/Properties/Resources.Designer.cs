@@ -79,6 +79,15 @@ namespace AnimatedSeriesAPI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Episode not found.
+        /// </summary>
+        internal static string episodeNotFound {
+            get {
+                return ResourceManager.GetString("episodeNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Genre not found.
         /// </summary>
         internal static string genreNotFound {
@@ -93,6 +102,15 @@ namespace AnimatedSeriesAPI.Properties {
         internal static string internalServerError {
             get {
                 return ResourceManager.GetString("internalServerError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must specify page number and page size.
+        /// </summary>
+        internal static string noPageInfo {
+            get {
+                return ResourceManager.GetString("noPageInfo", resourceCulture);
             }
         }
         

@@ -4,6 +4,7 @@ using AnimatedSeriesAPI.Middleware;
 using AnimatedSeriesAPI.Models;
 using AnimatedSeriesAPI.Models.Repositories;
 using AnimatedSeriesAPI.Models.Repositories.Interfaces.ModelInterfaces;
+using AnimatedSeriesAPI.Services;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -34,10 +35,10 @@ namespace AnimatedSeriesAPI
 
         public static void AddValidationLayer(this IServiceCollection services)
         {
-            services.AddScoped<ResourceManagerService>();
             services.AddScoped<ErrorHandlingMiddleware>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
+            services.AddScoped<IValidator<SeriesQuery>, SeriesQueryValidator>();
         }
 
         public static void AddAuthenticationLayer(this IServiceCollection services, IConfiguration configuration)

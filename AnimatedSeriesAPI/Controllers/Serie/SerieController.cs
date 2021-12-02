@@ -26,9 +26,9 @@ namespace AnimatedSeriesAPI.Controllers
         /// <returns>Returns list of SerieShortDtos</returns>
         /// <response code="200">Returns dtos for all series in databse</response>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SerieShortDto>>> GetAllSeries()
+        public async Task<ActionResult<PagedResult<SerieShortDto>>> GetAllSeries([FromQuery] SeriesQuery query)
         {
-            var serieDtos = await _daoService.GetAll();
+            var serieDtos = await _daoService.GetAll(query);
 
             return Ok(serieDtos);
         }

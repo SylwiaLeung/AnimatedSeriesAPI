@@ -1,6 +1,7 @@
 using AnimatedSeriesAPI.Data;
 using AnimatedSeriesAPI.Entities;
 using AnimatedSeriesAPI.Exceptions;
+using AnimatedSeriesAPI.Properties;
 using AutoMapper;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
@@ -37,7 +38,7 @@ namespace AnimatedSeriesAPI.Models
                 .FirstOrDefaultAsync(i => i.Id == id);
 
             if (genreToDelete is null)
-                throw new NotFoundException("Genre not found");
+                throw new NotFoundException(Resources.ResourceManager.GetString("genreNotFound"));
 
             _context.Genres.Remove(genreToDelete);
             await _context.SaveChangesAsync();
@@ -60,7 +61,7 @@ namespace AnimatedSeriesAPI.Models
               .FirstOrDefaultAsync(i => i.Id == id);
 
             if (genre is null || genre.Id != id)
-                throw new NotFoundException("Genre not found");
+                throw new NotFoundException(Resources.ResourceManager.GetString("genreNotFound"));
 
             return genre;
         }
@@ -72,7 +73,7 @@ namespace AnimatedSeriesAPI.Models
                 .FirstOrDefaultAsync(i => i.Id == id);
 
             if (genre is null || genre.Id != id)
-                throw new NotFoundException("Genre not found");
+                throw new NotFoundException(Resources.ResourceManager.GetString("genreNotFound"));
 
             var genreDto = _mapper.Map<GenreLongDto>(genre);
 
@@ -83,7 +84,7 @@ namespace AnimatedSeriesAPI.Models
         {
 
             if (genreToUpdate is null)
-                throw new NotFoundException("Genre to update not found");
+                throw new NotFoundException(Resources.ResourceManager.GetString("genreNotFound"));
 
             _context.Genres.Update(genreToUpdate);
             await _context.SaveChangesAsync();
