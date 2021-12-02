@@ -33,7 +33,7 @@ namespace AnimatedSeriesAPI.Models
                     var emailUsed = dbContext.Users.Any(u => u.Email == value);
                     if (emailUsed)
                     {
-                        context.AddFailure("Email", "This email address is already registered.");
+                        context.AddFailure("Email", "This email address is already registered");
                     }
                 });
         }
