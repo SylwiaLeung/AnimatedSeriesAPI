@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace AnimatedSeriesAPI.Controllers
 {
-    [Route("api/[controller]")]
+    /// <summary>
+    /// Serie API controller offers GET request methods
+    /// </summary>
+    [Route("api/series")]
     [ApiController]
     [Authorize]
     public class SerieController : ControllerBase
@@ -18,6 +21,12 @@ namespace AnimatedSeriesAPI.Controllers
             _daoService = daoService;
         }
 
+
+        /// <summary>
+        /// GET method returns all series
+        /// </summary>
+        /// <returns>Returns list of SerieShortDtos</returns>
+        /// <response code="200">Returns dtos for all series in databse</response>
         [HttpGet]
         [AllowAnonymous]
         public async Task<ActionResult<PagedResult<SerieShortDto>>> GetAllSeries([FromQuery] SeriesQuery query)
@@ -27,29 +36,45 @@ namespace AnimatedSeriesAPI.Controllers
             return Ok(serieDtos);
         }
 
-        [HttpGet("{id}")]
+        /// <summary>
+        /// GET method return serie specified by id
+        /// </summary>
+        /// <param name="serieId"></param>
+        /// <returns>Returns specified SerieLongDto</returns>
+        /// <response code="200">Returns specifed serie's dto</response>
+        [HttpGet("{serieId}")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<SerieLongDto>> GetSingleSerie([FromRoute] int id)
+        public async Task<ActionResult<SerieLongDto>> GetSingleSerie([FromRoute] int serieId)
         {
-            var serieDto = await _daoService.GetSingle(id);
+            var serieDto = await _daoService.GetSingle(serieId);
 
             return Ok(serieDto);
         }
 
-        [HttpGet("{id}/Season")]
-        public async Task<ActionResult<IEnumerable<SerieShortDto>>> GetAllSeasons([FromRoute] int id)
+        /// <summary>
+        /// GET method returns all season for specified serie by id
+        /// </summary>
+        /// <returns>Returns list of SeasonShortDto</returns>
+        /// <response code="200">Returns dtos for all sesons in specified serie</response>
+        [HttpGet("{serieId}/season")]
+        public async Task<ActionResult<IEnumerable<SeasonShortDto>>> GetAllSeasons([FromRoute] int serieId)
         {
-            var serieDtos = await _daoService.GetAllSeasons(id);
+            var serieDtos = await _daoService.GetAllSeasons(serieId);
 
             return Ok(serieDtos);
         }
 
-        [HttpGet("{serieId}/season/{SeasonId}")]
-        public async Task<ActionResult<SerieLongDto>> GetSingleSeason([FromRoute] int serieId, [FromRoute] int seasonId)
+        /// <summary>
+        /// GET method returns specified seson by id for specified serie by id
+        /// </summary>
+        /// <returns>Returns SeasonLongDto</returns>
+        /// <response code="200">Returns season specified by id in specified serie</response>
+        [HttpGet("{serieId}/season/{seasonId}")]
+        public async Task<ActionResult<SeasonLongDto>> GetSingleSeason([FromRoute] int serieId, [FromRoute] int seasonId)
         {
-            var serieDto = await _daoService.GetSingleSeason(serieId, seasonId);
+            var sesonDto = await _daoService.GetSingleSeason(serieId, seasonId);
 
-            return Ok(serieDto);
+            return Ok(sesonDto);
         }
     }
 }

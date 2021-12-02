@@ -1,4 +1,5 @@
 using AnimatedSeriesAPI.Exceptions;
+using AnimatedSeriesAPI.Properties;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
@@ -40,7 +41,7 @@ namespace AnimatedSeriesAPI.Middleware
                 _logger.LogError(e, e.Message);
 
                 context.Response.StatusCode = 500;
-                await context.Response.WriteAsync("Internal Server Error from the middleware");
+                await context.Response.WriteAsync(Resources.ResourceManager.GetString("internalServerError"));
             }
         }
     }
