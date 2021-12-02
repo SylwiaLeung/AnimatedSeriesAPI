@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace AnimatedSeriesAPI.Controllers
 {
+    /// <summary>
+    /// Director API controller offers GET, POST, PATCH, DELETE request methods
+    /// </summary>
     [Route("api/genre")]
     [ApiController]
     public class GenreController : ControllerBase
@@ -21,45 +24,94 @@ namespace AnimatedSeriesAPI.Controllers
             _mapper = mapper;
         }
 
+
+        /// <summary>
+        /// GET method returns all genres
+        /// </summary>
+        /// <returns>Returns list of GenreShortDtos</returns>
+        /// <response code="200">Returns dtos for all genres in databse</response> 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GenreShortDto>>> GetAllGenre()
         {
-            var genre = await _genreRepository.GetAll() ;
+            return Ok(await _genreRepository.GetAll());
+        }
+
+
+        /// <summary>
+        /// GET method return genre specified by id
+        /// </summary>
+        /// <param name="genreId"></param>
+        /// <returns>Returns specified GenreLongDto</returns>
+        /// <response code="200">Returns specifed genre's dto</response>
+        [HttpGet("{genreId}")]
+        public async Task<ActionResult<GenreLongDto>> GetGenre([FromRoute] int genreId)
+        {
+            var genre = await _genreRepository.GetSingle(genreId);
 
             return Ok(genre);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<GenreLongDto>> GetGenre([FromRoute] int id)
+
+        /// <summary>
+        /// DELETE method delete specifed genre from database
+        /// </summary>
+        /// <param name="genreId"></param>
+        /// <returns>Return 204 NoContent</returns>
+        /// <response code="204">Returns no content</response>
+        [HttpDelete("{genreId}")]
+        public async Task<ActionResult> DeleteGenre([FromRoute] int genreId)
         {
-            var genre = await _genreRepository.GetSingle(id);
-
-            return Ok(genre);
-        }
-
-
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteGenre([FromRoute] int id)
-        {
-            await _genreRepository.Delete(id);
+            await _genreRepository.Delete(genreId);
 
             return NoContent();
         }
 
-
+        /// <summary>
+        /// POST method add new Genre to database
+        /// </summary>
+        /// <param name="genreCreateDto"></param>
+        /// <returns>Return endpoint to new object</returns>
+        /// /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /Todo
+        ///     {
+        ///        "name": "New Genre"
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="201">Returns endpoint to new genre</response>
+        
         [HttpPost]
-        //[Route("Genres")]
         public async Task<ActionResult> CreateGenre(GenreCreateDto genreCreateDto)
         {
             int newDirectorId = await _genreRepository.Add(genreCreateDto);
             return Created($"/genre/{newDirectorId}", null);
         }
 
-
-        [HttpPatch("{id}")]
-        public async Task<ActionResult> UpdateGenre(JsonPatchDocument<GenreUpdateDto> patchDoc, int id)
+        /// <summary>
+        /// PATCH method partial update of specifed genre
+        /// </summary>
+        /// <param name="genreId"></param>
+        /// <param name="patchDoc"></param>
+        /// <returns>Returns 204 NoContent</returns>
+        /// /// <remarks>
+        /// Sample request:
+        ///
+        ///     PATCH /Todo
+        ///     [
+        ///       {
+        ///         "op":"replace",
+        ///         "path":"/Name",
+        ///         "value": "Anime Test"
+        ///       }
+        ///     ]
+        /// </remarks>
+        /// <response code="204">Returns no content</response>
+        [HttpPatch("{genreId}")]
+        public async Task<ActionResult> UpdateGenre(JsonPatchDocument<GenreUpdateDto> patchDoc, int genreId)
         {
-            var genreToUpdate = await _genreRepository.GetById(id);
+            var genreToUpdate = await _genreRepository.GetById(genreId);
 
             GenreUpdateDto genreToPathDto = _mapper.Map<GenreUpdateDto>(genreToUpdate);
 
