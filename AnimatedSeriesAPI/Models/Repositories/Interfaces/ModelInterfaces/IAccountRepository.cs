@@ -6,5 +6,5 @@ namespace AnimatedSeriesAPI.Models.Repositories
     {
         Task RegisterUser(RegisterUserDto dto);
         Task<string> GenerateJwt(LoginDto dto);
-    } 
+    }
 }

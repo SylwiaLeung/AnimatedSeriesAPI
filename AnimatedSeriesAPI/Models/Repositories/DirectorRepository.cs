@@ -5,8 +5,6 @@ using AnimatedSeriesAPI.Models.DTO.Director;
 using AnimatedSeriesAPI.Models.Repositories.Interfaces.ModelInterfaces;
 using AnimatedSeriesAPI.Properties;
 using AutoMapper;
-using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +32,7 @@ namespace AnimatedSeriesAPI.Models.Repositories
 
         public async Task<DirectorLongDto> GetSingle(int id)
         {
-            var director = await _context.Directors.Include(x => x.Seasons).ThenInclude(x =>x.Serie).SingleOrDefaultAsync(x => x.Id == id);
+            var director = await _context.Directors.Include(x => x.Seasons).ThenInclude(x => x.Serie).SingleOrDefaultAsync(x => x.Id == id);
             if (director is null)
             {
                 throw new NotFoundException(Resources.ResourceManager.GetString("directorNotFound"));
@@ -45,7 +43,7 @@ namespace AnimatedSeriesAPI.Models.Repositories
         public async Task<IEnumerable<SeasonShortDto>> GetDirectorAllSeasons(int directorId)
         {
 
-            var director = await _context.Directors.Include(x =>x.Seasons).ThenInclude(x => x.Serie).SingleOrDefaultAsync(x =>x.Id == directorId);
+            var director = await _context.Directors.Include(x => x.Seasons).ThenInclude(x => x.Serie).SingleOrDefaultAsync(x => x.Id == directorId);
             if (director is null)
             {
                 throw new NotFoundException(Resources.ResourceManager.GetString("directorNotFound"));

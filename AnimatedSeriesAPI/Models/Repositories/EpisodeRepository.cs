@@ -1,13 +1,13 @@
 using AnimatedSeriesAPI.Data;
 using AnimatedSeriesAPI.Entities;
+using AnimatedSeriesAPI.Exceptions;
+using AnimatedSeriesAPI.Models.DTO.Episode;
+using AnimatedSeriesAPI.Properties;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using AnimatedSeriesAPI.Exceptions;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Linq;
-using AnimatedSeriesAPI.Properties;
-using AnimatedSeriesAPI.Models.DTO.Episode;
+using System.Threading.Tasks;
 
 namespace AnimatedSeriesAPI.Models
 {
@@ -73,10 +73,11 @@ namespace AnimatedSeriesAPI.Models
             return season;
         }
 
-        public async Task<int> Add(EpisodeCreateDto episodeCreateDto)
+        public async Task<int> Add(EpisodeCreateDto episodeCreateDto, int seasonId)
         {
             var episodeModel = _mapper.Map<Episode>(episodeCreateDto);
-            await _context.AddAsync(episodeModel);
+            episodeModel.SeasonId = seasonId;
+            await _context.Episodes.AddAsync(episodeModel);
             await _context.SaveChangesAsync();
             return episodeModel.Id;
         }

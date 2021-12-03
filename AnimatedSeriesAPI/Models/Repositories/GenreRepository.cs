@@ -3,10 +3,8 @@ using AnimatedSeriesAPI.Entities;
 using AnimatedSeriesAPI.Exceptions;
 using AnimatedSeriesAPI.Properties;
 using AutoMapper;
-using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace AnimatedSeriesAPI.Models
@@ -88,7 +86,7 @@ namespace AnimatedSeriesAPI.Models
 
             _context.Genres.Update(genreToUpdate);
             await _context.SaveChangesAsync();
-            
+
         }
     }
 }
