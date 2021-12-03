@@ -1,12 +1,12 @@
 using AnimatedSeriesAPI.Data;
 using AnimatedSeriesAPI.Entities;
+using AnimatedSeriesAPI.Exceptions;
+using AnimatedSeriesAPI.Properties;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using AnimatedSeriesAPI.Exceptions;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using AnimatedSeriesAPI.Properties;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AnimatedSeriesAPI.Models
 {
@@ -19,7 +19,7 @@ namespace AnimatedSeriesAPI.Models
         {
             _context = context;
             _mapper = mapper;
-        }   
+        }
 
         public async Task<PagedResult<SerieLongDto>> GetAll(SeriesQuery query)
         {

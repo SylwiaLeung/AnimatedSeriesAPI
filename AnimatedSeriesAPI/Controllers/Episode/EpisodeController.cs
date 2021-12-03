@@ -52,6 +52,7 @@ namespace AnimatedSeriesAPI.Controllers
         /// POST method add new Episode of specified serie and season to database
         /// </summary>
         /// <param name="episodeCreateDto"></param>
+        /// <param name="seasonId"></param>
         /// <returns>Returns endpoint to new object</returns>
         /// /// <remarks>
         /// Sample request:
@@ -59,16 +60,15 @@ namespace AnimatedSeriesAPI.Controllers
         ///     POST /Todo
         ///     {
         ///        "Title": "New Episode",
-        ///        "EpisodeNumber": 33,
-        ///        "SeasonId": 3
+        ///        "EpisodeNumber": 33
         ///     }
         ///
         /// </remarks>
         /// <response code="201">Returns endpoint to new episode</response>
         [HttpPost]
-        public async Task<ActionResult> CreateEpisode([FromBody] EpisodeCreateDto episodeCreateDto)
+        public async Task<ActionResult> CreateEpisode([FromBody] EpisodeCreateDto episodeCreateDto, [FromRoute] int seasonId)
         {
-            int newEpisodeId = await _daoService.Add(episodeCreateDto);
+            int newEpisodeId = await _daoService.Add(episodeCreateDto, seasonId);
             return Created($"/episodes/{newEpisodeId}", null);
         }
 

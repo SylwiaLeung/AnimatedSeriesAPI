@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace AnimatedSeriesAPI.Models
+﻿namespace AnimatedSeriesAPI.Models
 {
     public interface ISeasonRepository : IReadableRepository<SeasonLongDto, SeasonShortDto>
     {

@@ -1,7 +1,7 @@
-using AutoMapper;
 using AnimatedSeriesAPI.Entities;
 using AnimatedSeriesAPI.Models.DTO.Director;
 using AnimatedSeriesAPI.Models.DTO.Episode;
+using AutoMapper;
 
 namespace AnimatedSeriesAPI.Models
 {
@@ -23,7 +23,7 @@ namespace AnimatedSeriesAPI.Models
                 .ForMember(s => s.SerieTitle, s => s.MapFrom(s => s.Serie.Title))
                 .ForMember(s => s.DirectorName, s => s.MapFrom(s => s.Director.Name))
                 .ForMember(s => s.Lectors, s => s.MapFrom(s => s.Cast.CastLectors));
-                
+
             CreateMap<Season, SeasonShortDto>()
                 .ForMember(s => s.SerieTitle, s => s.MapFrom(s => s.Serie.Title));
 
@@ -40,8 +40,7 @@ namespace AnimatedSeriesAPI.Models
 
             CreateMap<DirectorCreateDto, Director>().ReverseMap();
             CreateMap<DirectorUpdateDto, Director>().ReverseMap();
-            CreateMap<EpisodeCreateDto, Episode>()
-                .ForMember(s => s.Season, c => c.MapFrom(dto => new Season() { Id = dto.SeasonId }));
+            CreateMap<EpisodeCreateDto, Episode>();
         }
     }
 }

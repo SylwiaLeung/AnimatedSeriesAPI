@@ -28,7 +28,7 @@ namespace AnimatedSeriesAPI.Data
             modelBuilder.Entity<CastLector>()
                 .HasOne(cl => cl.Cast)
                 .WithMany(c => c.CastLectors)
-                .HasForeignKey(bc => bc.CastId);    
+                .HasForeignKey(bc => bc.CastId);
             modelBuilder.Entity<CastLector>()
                 .HasOne(cl => cl.Lector)
                 .WithMany(l => l.CastLectors)

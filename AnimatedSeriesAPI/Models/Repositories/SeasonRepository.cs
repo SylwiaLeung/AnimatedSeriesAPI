@@ -1,14 +1,10 @@
-using AnimatedSeriesAPI.Controllers;
 using AnimatedSeriesAPI.Data;
-using AnimatedSeriesAPI.Entities;
+using AnimatedSeriesAPI.Exceptions;
+using AnimatedSeriesAPI.Properties;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using AnimatedSeriesAPI.Exceptions;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AnimatedSeriesAPI.Properties;
 
 namespace AnimatedSeriesAPI.Models
 {

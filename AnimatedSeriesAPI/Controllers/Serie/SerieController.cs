@@ -21,7 +21,6 @@ namespace AnimatedSeriesAPI.Controllers
             _daoService = daoService;
         }
 
-
         /// <summary>
         /// GET method returns all series
         /// </summary>

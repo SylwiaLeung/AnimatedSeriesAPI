@@ -1,11 +1,8 @@
-﻿using AnimatedSeriesAPI.Entities;
-using AnimatedSeriesAPI.Models;
-using AnimatedSeriesAPI.Models.DTO;
+﻿using AnimatedSeriesAPI.Models;
 using AnimatedSeriesAPI.Models.DTO.Director;
 using AnimatedSeriesAPI.Models.Repositories.Interfaces.ModelInterfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -123,11 +120,11 @@ namespace AnimatedSeriesAPI.Controllers.Director
         /// <response code="204">Returns no content</response>
         [HttpPatch]
         [Route("{directorId}")]
-        public async Task<ActionResult> UpdateDirector(int directorId, JsonPatchDocument<DirectorUpdateDto> patchDoc )
+        public async Task<ActionResult> UpdateDirector(int directorId, JsonPatchDocument<DirectorUpdateDto> patchDoc)
         {
             var directorToUpdate = await _directorRepo.GetById(directorId);
 
-            DirectorUpdateDto directorToPatch = _mapper.Map<DirectorUpdateDto>(directorToUpdate); 
+            DirectorUpdateDto directorToPatch = _mapper.Map<DirectorUpdateDto>(directorToUpdate);
 
             patchDoc.ApplyTo(directorToPatch, ModelState);
             if (!TryValidateModel(directorToPatch))

@@ -2,7 +2,6 @@ using AnimatedSeriesAPI.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -24,7 +23,6 @@ namespace AnimatedSeriesAPI.Controllers
             _mapper = mapper;
         }
 
-
         /// <summary>
         /// GET method returns all genres
         /// </summary>
@@ -35,7 +33,6 @@ namespace AnimatedSeriesAPI.Controllers
         {
             return Ok(await _genreRepository.GetAll());
         }
-
 
         /// <summary>
         /// GET method return genre specified by id
@@ -50,7 +47,6 @@ namespace AnimatedSeriesAPI.Controllers
 
             return Ok(genre);
         }
-
 
         /// <summary>
         /// DELETE method delete specifed genre from database
@@ -81,7 +77,7 @@ namespace AnimatedSeriesAPI.Controllers
         ///
         /// </remarks>
         /// <response code="201">Returns endpoint to new genre</response>
-        
+
         [HttpPost]
         public async Task<ActionResult> CreateGenre(GenreCreateDto genreCreateDto)
         {
